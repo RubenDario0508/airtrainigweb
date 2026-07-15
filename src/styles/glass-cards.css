@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   glass-cards.css — Glassmorphism card system
+   Clean, scalable, elegant, and non-overlapping.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── BASE CARD ──────────────────────────────────────────────────────────── */
+.glass-card {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  will-change: auto;
+  color: #ffffff;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Inner panel: the actual glass surface */
+.glass-card__inner {
+  position: relative;
+  overflow: hidden;
+  padding: 0.6rem 0.8rem; /* Sleeker, more compact padding */
+  border-radius: 12px;
+  background: rgba(4, 6, 12, 0.45); /* Lower opacity for frost glass */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Faint white rim */
+  backdrop-filter: blur(32px) saturate(140%); /* High blur for frosted effect */
+  -webkit-backdrop-filter: blur(32px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.glass-card__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 40%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-card__content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── LABEL / CHIP ───────────────────────────────────────────────────────── */
+.glass-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #a3a3a3;
+  font-weight: 700;
+  font-size: 0.50rem; /* Extremely elegant small chip typography */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.glass-card__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; /* Reduced from 0.92rem for modern aesthetic */
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
+.glass-card__body {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.65rem; /* Compact body font size */
+  line-height: 1.35;
+  margin: 0;
+}
+
+.glass-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.glass-card__actions > * {
+  pointer-events: auto;
+}
+
+/* ─── TELEMETRY PANEL ─────────────────────────────────────────────────────── */
+.glass-card--telemetry .glass-card__inner {
+  padding: 1rem 1.25rem;
+}
+
+/* ─── DESKTOP POSITIONING (ROBUST FLEX COLUMNS) ────────────────────────────────── */
+.glass-cards-container {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.glass-desktop-column {
+  position: absolute;
+  top: 8vh;
+  bottom: 8vh;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.glass-desktop-left {
+  left: max(1rem, 4vw);
+}
+
+.glass-desktop-right {
+  right: max(1rem, 4vw);
+}
+
+.glass-card {
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Bordes coloreados para jerarquía visual (Marca: Rojo, Blanco, Dorado) - EXTREMELY THIN 1px */
+.glass-card--top-left .glass-card__inner { border-left: 1px solid rgba(255, 255, 255, 0.6); }
+.glass-card--bottom-left .glass-card__inner { border-left: 1px solid rgba(255, 170, 29, 0.8); }
+.glass-card--top-right .glass-card__inner { border-left: 1px solid rgba(255, 255, 255, 0.6); }
+.glass-card--bottom-right .glass-card__inner { border-left: 1px solid rgba(231, 26, 36, 0.6); }
+.glass-card--cta .glass-card__inner {
+  border-left: 3px solid #e71a24;
+}
+
+/* Tarjeta Central (CTA) Desktop */
+.glass-card--center-overlay {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(400px, 90%);
+  text-align: center;
+}
+
+.glass-card--cta .glass-card__inner {
+  padding: 1.1rem 1.4rem; /* Sleeker overlay CTA padding */
+}
+
+.glass-card--cta .glass-card__title {
+  font-size: 1.05rem; /* Elegant center title size */
+}
+
+/* ─── MOBILE RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 800px) {
+  /* Móvil: Flujo Flex Vertical para no solapar */
+  .glass-cards-container {
+    position: absolute !important;
+    inset: 0 !important;
+    padding: 12vh 1rem 10vh 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    pointer-events: none !important; /* Allow scrolls to pass through to canvas underneath */
+  }
+  
+  .glass-desktop-column {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+    justify-content: flex-start !important;
+    pointer-events: none !important;
+  }
+
+  .glass-card {
+    position: relative !important;
+    width: 100% !important;
+    transform: translateY(20px) !important;
+    pointer-events: auto !important; /* Clickable card content/buttons */
+  }
+
+  /* Centro (CTA final) */
+  .glass-card--center-overlay {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 1rem auto !important;
+    width: 100% !important;
+    max-width: 340px !important;
+  }
+  
+  /* Ajustes agresivos para asegurar que quepan en móvil */
+  .glass-card__inner {
+    padding: 0.55rem 0.75rem !important; /* Tight padding to maximize vertical space */
+    border-radius: 10px !important;
+    text-align: center !important; 
+  }
+  
+  .glass-card__title {
+    font-size: 0.8rem !important; /* Perfect small mobile headers */
+    margin-bottom: 2px !important;
+  }
+  
+  .glass-card__body {
+    font-size: 0.65rem !important; /* Perfectly readable small body */
+    line-height: 1.3 !important;
+  }
+  
+  .glass-card__label {
+    font-size: 0.52rem !important;
+    margin-bottom: 2px !important;
+    justify-content: center !important; 
+  }
+  
+  .glass-card__actions {
+    margin-top: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* Botones más pequeños en móvil */
+  .glass-card__actions .btn-primary, 
+  .glass-card__actions .btn-secondary {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Reducir Telemetría en móvil */
+  .glass-card--telemetry .glass-card__title {
+    font-size: 0.85rem !important;
+  }
+  .glass-card--telemetry .glass-card__content > div {
+    font-size: 0.65rem !important;
+    margin-top: 0.4rem !important;
+  }
+  .glass-card--telemetry .glass-card__content > div > div {
+    padding-bottom: 2px !important;
+  }
+  /* Ocultar elementos menos críticos para ahorrar espacio en Y */
+  .glass-card--telemetry .glass-card__content > div > div:nth-child(n+4) {
+    display: none !important;
+  }
+}

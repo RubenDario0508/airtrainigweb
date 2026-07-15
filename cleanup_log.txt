@@ -1,0 +1,90 @@
+DELETED | cockpit_vision_bg.png (0.75 MB)
+DELETED | Fachadachia.png (2.59 MB)
+DELETED | FachadaIbague.png (1.95 MB)
+KEPT    | GALERIA1.jpg (0.23 MB) - no webp
+KEPT    | icon.png (0.05 MB) - no webp
+KEPT    | icon_backup.png (0.07 MB) - no webp
+DELETED | runway_operations_bg.png (0.72 MB)
+KEPT    | vida_academica.png (0.03 MB) - no webp
+KEPT    | iconhero\Mision.png (0.03 MB) - no webp
+KEPT    | iconhero\Puntos.png (0.00 MB) - no webp
+KEPT    | iconhero\UbiMaps.png (0.00 MB) - no webp
+KEPT    | iconhero\UbiTolima.png (0.00 MB) - no webp
+KEPT    | iconhero\Vision.png (0.02 MB) - no webp
+DELETED | imgpag2\Convalidaciones y Nievelación.jpg (3.72 MB)
+DELETED | imgpag2\Convalidaciones.jpg (1.40 MB)
+DELETED | imgpag2\Despachador de Aeronaves.jpg (3.47 MB)
+DELETED | imgpag2\DPA.jpg (2.75 MB)
+KEPT    | imgpag2\Exam. Psicotécnico.png (0.01 MB) - no webp
+KEPT    | imgpag2\Examen clase 1.png (0.01 MB) - no webp
+DELETED | imgpag2\Nivelación Operacional.jpg (2.93 MB)
+DELETED | imgpag2\PCA.jpg (1.97 MB)
+DELETED | imgpag2\Piloto comercial de Avión.jpg (3.65 MB)
+DELETED | imgpag2\Piloto privado de avión.jpg (3.62 MB)
+DELETED | imgpag2\PPA.jpg (2.01 MB)
+KEPT    | imgpag2\Proceso matrícula.png (0.01 MB) - no webp
+DELETED | imgpag2\TCP.jpg (1.55 MB)
+DELETED | imgpag2\Tripulante de Cabina de pasajeros.jpg (3.49 MB)
+KEPT    | imgpag3\avion_piper.jpg (0.17 MB) - no webp
+DELETED | imgpag3\Boeing HD.png (2.24 MB)
+DELETED | imgpag3\Cessna HD.png (2.43 MB)
+DELETED | imgpag3\Piper HD.png (2.11 MB)
+DELETED | imgpag3\Simulador A320 HD.png (2.40 MB)
+KEPT    | imgpag3\icon\Instrumentación.png (0.01 MB) - no webp
+KEPT    | imgpag3\icon\Mantimiento.png (0.01 MB) - no webp
+KEPT    | imgpag3\icon\Seguridad.png (0.01 MB) - no webp
+DELETED | imgpag4\IFR PW.jpg (0.90 MB)
+DELETED | imgpag4\Recobro Autonomía PW.jpg (0.89 MB)
+KEPT    | imgpag4\SMS PW.jpg (0.32 MB) - no webp
+DELETED | imgpag4\UAS PW.jpg (0.56 MB)
+DELETED | imgpag5\Aviones Hangar.png (4.51 MB)
+DELETED | imgpag5\dpa mantenimiento.jpg (10.84 MB)
+DELETED | imgpag5\estatico.jpg (10.82 MB)
+DELETED | imgpag5\estatico_cropped.jpg (1.15 MB)
+KEPT    | imgpag5\icon\asegurar.png (0.02 MB) - no webp
+KEPT    | imgpag5\icon\continuo.png (0.03 MB) - no webp
+KEPT    | imgpag5\icon\identificar.png (0.03 MB) - no webp
+KEPT    | imgpag5\icon\investigacion.png (0.01 MB) - no webp
+KEPT    | imgpag5\icon\la-satisfaccion-del-cliente.png (0.01 MB) - no webp
+KEPT    | imgpag5\icon\mision-cumplida.png (0.02 MB) - no webp
+KEPT    | imgpag5\icon\promocion.png (0.02 MB) - no webp
+KEPT    | imgpag5\icon\reconocimiento.png (0.02 MB) - no webp
+KEPT    | imgpag5\icon\supervisar.png (0.03 MB) - no webp
+KEPT    | imgpag5\icon\verificar.png (0.02 MB) - no webp
+DELETED | imgpag7\FONDO 1.jpg (3.96 MB)
+DELETED | imgpag7\FONDO 2.jpg (5.01 MB)
+DELETED | imgpag7\FONDO 3.jpg (3.38 MB)
+DELETED | imgpag7\FONDO 4.jpg (4.59 MB)
+DELETED | imgpag7\imagentcp.jpg (0.90 MB)
+KEPT    | imgpag7\LOGO MARCA PASOS.png (0.02 MB) - no webp
+KEPT    | imgpag7\logo sky airlines.png (0.01 MB) - no webp
+DELETED | imgpag7\logo-sky-hd-01-01.png (1.12 MB)
+DELETED | imgpag7\Mesadetrabajo1.png (4.51 MB)
+KEPT    | imgpag8\676909208_1403316315173342_7995502963103544414_n.jpg (0.22 MB) - no webp
+DELETED | imgpag8\BlogTCP_1.jpg (4.46 MB)
+KEPT    | imgpag8\instagram_1.jpg (0.02 MB) - no webp
+KEPT    | imgpag8\instagram_2.jpg (0.02 MB) - no webp
+KEPT    | imgpag8\instagram_3.jpg (0.04 MB) - no webp
+KEPT    | imgpag8\instagram_4.jpg (0.01 MB) - no webp
+KEPT    | imgpag8\instagram_5.jpg (0.05 MB) - no webp
+DELETED | imgpag8\Mesadetrabajo1.jpg (1.14 MB)
+KEPT    | imgpag8\trabajaconnosotros\Diseñador grafico-CHIA.jpeg (0.14 MB) - no webp
+DELETED | imgpag8\trabajaconnosotros\Fondo Trabaja con Nosotros.jpg (6.42 MB)
+DELETED | imgpag8\trabajaconnosotros\Instructores.png (1.67 MB)
+KEPT    | imgpag8\trabajaconnosotros\Vacante Auxiliar de Servicios Generales.jpg (0.18 MB) - no webp
+KEPT    | imgpag8\trabajaconnosotros\Vacante Coordinador Académico.jpeg (0.25 MB) - no webp
+KEPT    | imgpag8\trabajaconnosotros\icon\Correo.png (0.00 MB) - no webp
+KEPT    | imgpag8\trabajaconnosotros\icon\Subirarchivo.png (0.01 MB) - no webp
+KEPT    | imgpag8\trabajaconnosotros\icon\Ubicacioon.png (0.01 MB) - no webp
+KEPT    | impgpag6\icon\AVIÓN.png (0.00 MB) - no webp
+KEPT    | impgpag6\icon\DESCARGA.png (0.00 MB) - no webp
+KEPT    | impgpag6\icon\DOCUMENTO.png (0.00 MB) - no webp
+KEPT    | impgpag6\icon\MANUALES.png (0.01 MB) - no webp
+KEPT    | impgpag6\icon\MATERIAL.png (0.00 MB) - no webp
+KEPT    | impgpag6\icon\PDF.png (0.00 MB) - no webp
+KEPT    | impgpag6\icon\REGULACIONES.png (0.00 MB) - no webp
+
+--- RESUMEN ---
+Eliminados: 37 archivos
+Conservados: 48 archivos
+Espacio liberado: 112.62 MB

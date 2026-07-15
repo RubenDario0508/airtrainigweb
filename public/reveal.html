@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Air Training — Experiencia inmersiva de vuelo. Escuela de aviación de élite.">
+<title>Air Training — Experiencia de Vuelo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:hidden}
+body{background:#070c17;color:#fff;font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ── Scroll wrapper ─────────────────────────────── */
+#wrap{position:relative;height:600vh}
+#sticky{position:sticky;top:0;width:100vw;height:100vh;overflow:hidden;contain:layout style paint}
+
+/* ── Dual canvas layers ─────────────────────────── */
+.seq-cvs{position:absolute;inset:0;width:100%;height:100%;display:block}
+#cvs-b{opacity:0}
+
+/* ── Atmospheric overlay ────────────────────────── */
+#atmo{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,23,.1) 0%,rgba(7,12,23,.52) 100%);pointer-events:none}
+
+/* ── Preloader ──────────────────────────────────── */
+#preloader{position:fixed;inset:0;z-index:100;background:#070c17;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .7s ease-out}
+#preloader.done{opacity:0;pointer-events:none}
+#pre-ring{width:52px;height:52px;border:2.5px solid rgba(255,255,255,.06);border-top-color:#f59e0b;border-radius:50%;animation:spin .75s linear infinite;margin-bottom:1.4rem}
+#pre-label{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#f59e0b;margin-bottom:1rem}
+#pre-track{width:200px;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:.5rem}
+#pre-bar{height:100%;width:0%;background:#f59e0b;border-radius:2px;box-shadow:0 0 10px #f59e0b;transition:width .08s}
+#pre-pct{font-size:.7rem;color:rgba(255,255,255,.35);font-family:'JetBrains Mono',monospace}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Scene (perspective container) ──────────────── */
+#scene{position:absolute;inset:0;pointer-events:none}
+
+/* ── Glass cards ────────────────────────────────── */
+.gc{position:absolute;pointer-events:none;z-index:10;opacity:0;will-change:transform,opacity,filter}
+.gc__box{position:relative;overflow:hidden;padding:1.75rem;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05)}
+.gc__box::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 55%);pointer-events:none}
+.gc__accent{display:block;font-size:.7rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#f59e0b;margin-bottom:6px}
+.gc__title{font-size:1.35rem;font-weight:800;line-height:1.22;margin-bottom:8px;clip-path:inset(0 100% 0 0)}
+.gc__sub{font-size:.86rem;line-height:1.65;color:rgba(255,255,255,.58);margin:0}
+
+/* ── Card positions (desktop) ───────────────────── */
+.p-tl{top:13%;left:clamp(1.5rem,4vw,4rem);width:min(330px,40vw)}
+.p-bl{bottom:16%;left:clamp(1.5rem,4vw,4rem);width:min(330px,40vw)}
+.p-tr{top:13%;right:clamp(1.5rem,4vw,4rem);width:min(330px,40vw)}
+.p-ct{bottom:10%;left:50%;width:min(420px,84vw);text-align:center}
+
+/* ── Mobile ─────────────────────────────────────── */
+@media(max-width:768px){
+  .p-tl,.p-tr,.p-bl{display:none!important}
+  .p-ct{bottom:6%;width:90%}
+  .gc__box{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:1.3rem}
+  .gc__title{font-size:1.15rem}
+  .gc__sub{font-size:.82rem}
+}
+
+/* ── Reduced motion ─────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  #cvs-b{display:none}
+  .gc{filter:none!important;transform:none!important;opacity:1!important}
+  .gc__title{clip-path:none!important}
+  #scene{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div id="pre-ring"></div>
+  <div id="pre-label">Inicializando Cabina</div>
+  <div id="pre-track"><div id="pre-bar"></div></div>
+  <div id="pre-pct">0 / 220</div>
+</div>
+
+<div id="wrap">
+  <div id="sticky">
+    <canvas id="cvs-a" class="seq-cvs"></canvas>
+    <canvas id="cvs-b" class="seq-cvs"></canvas>
+    <div id="atmo"></div>
+    <div id="scene"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const TOTAL=220,PATH='/hero-parallax/frame-',EXT='.webp',PAD=3;
+const LERP=0.08,EAGER=40,CHUNK=20,AHEAD=8;
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+const mix=(a,b,t)=>a+(b-a)*t;
+const fpath=i=>`${PATH}${String(i).padStart(PAD,'0')}${EXT}`;
+const reducedMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ═══ 1. SequenceEngine ═══════════════════════════════ */
+const seq={
+  fr:new Array(TOTAL).fill(null),has:new Set(),busy:new Set(),
+  cA:null,xA:null,cB:null,xB:null,
+
+  init(a,b){
+    this.cA=a;this.xA=a.getContext('2d');
+    this.cB=b;this.xB=b.getContext('2d');
+    this.resize();
+    addEventListener('resize',()=>this.resize());
+  },
+
+  resize(){
+    const d=devicePixelRatio||1,w=innerWidth*d,h=innerHeight*d;
+    for(const c of[this.cA,this.cB]){c.width=w;c.height=h;c.style.width='100%';c.style.height='100%'}
+  },
+
+  async loadRange(s,e,cb){
+    const p=[];
+    for(let i=s;i<=Math.min(e,TOTAL);i++){
+      if(this.has.has(i)||this.busy.has(i))continue;
+      this.busy.add(i);
+      p.push(this._ld(i).then(()=>{cb?.()}));
+    }
+    await Promise.all(p);
+  },
+
+  async _ld(i){
+    try{
+      const src=fpath(i);let img;
+      if(typeof createImageBitmap==='function'){
+        const r=await fetch(src);img=await createImageBitmap(await r.blob());
+      }else{
+        img=await new Promise((ok,no)=>{const el=new Image();el.onload=()=>ok(el);el.onerror=no;el.src=src});
+      }
+      this.fr[i-1]=img;this.has.add(i);
+    }catch(e){}
+    this.busy.delete(i);
+  },
+
+  render(ff,vel){
+    const fi=clamp(Math.floor(ff),0,TOTAL-1),ci=clamp(fi+1,0,TOTAL-1),t=ff-fi;
+    const a=this.fr[fi];if(!a)return;
+    this._cov(this.xA,a,this.cA.width,this.cA.height);
+
+    // Sub-frame crossfade between adjacent frames
+    const b=this.fr[ci];
+    if(!reducedMotion&&b&&t>0.01){
+      this.cB.style.opacity=t.toFixed(3);
+      this._cov(this.xB,b,this.cB.width,this.cB.height);
+    }else{this.cB.style.opacity='0'}
+
+    // Velocity-proportional momentum blur (capped at 3px)
+    if(!reducedMotion){
+      const blur=clamp(Math.abs(vel)*140,0,3);
+      this.cA.style.filter=blur>0.15?`blur(${blur.toFixed(1)}px)`:'none';
+    }
+  },
+
+  _cov(ctx,img,w,h){
+    const s=Math.max(w/img.width,h/img.height);
+    const dw=img.width*s,dh=img.height*s;
+    ctx.clearRect(0,0,w,h);
+    ctx.drawImage(img,(w-dw)/2,(h-dh)/2,dw,dh);
+  },
+
+  // Trigger next chunk load when we're AHEAD frames away from needing it
+  prefetch(frame){
+    const idx=Math.round(frame)+1;
+    const cStart=Math.floor((idx-1)/CHUNK)*CHUNK+1;
+    const nxt=cStart+CHUNK;
+    if(idx>=cStart+CHUNK-AHEAD&&nxt<=TOTAL&&!this.has.has(nxt))
+      this.loadRange(nxt,nxt+CHUNK-1);
+  }
+};
+
+/* ═══ 2. ScrollState ══════════════════════════════════ */
+const ss={
+  raw:0,smooth:0,progress:0,velocity:0,_prev:0,wrapH:1,
+
+  init(){this.wrapH=document.getElementById('wrap').offsetHeight-innerHeight},
+
+  read(){this.raw=clamp(pageYOffset/this.wrapH,0,1)},
+
+  compute(){
+    this._prev=this.smooth;
+    this.smooth=mix(this.smooth,this.raw,LERP);
+    this.velocity=this.smooth-this._prev;
+    // Eased progress: quadratic ease-in-out for cinematic pacing
+    const p=this.smooth;
+    this.progress=p<0.5?2*p*p:-1+(4-2*p)*p;
+  }
+};
+
+/* ═══ 3. GlassLayer ═══════════════════════════════════ */
+const SCENES=[
+  {fi:55, fo:125,pos:'tl',accent:'Fase de Despegue',     title:'Sistemas Listos',       sub:'Instrumental de vuelo simulado con precisión matemática para un despegue seguro.'},
+  {fi:90, fo:160,pos:'bl',accent:'Cabina Digital',        title:'Simuladores ILS',       sub:'Aproximaciones instrumentales con tecnología radar avanzada en Chía e Ibagué.'},
+  {fi:120,fo:190,pos:'tr',accent:'Seguridad de Vuelo',    title:'Estándares de Élite',   sub:'Formación que cumple y excede las regulaciones internacionales de aviación civil.'},
+  {fi:155,fo:220,pos:'ct',accent:'Tu Futuro Empieza Aquí',title:'¿Listo para el Despegue?',sub:'Matrículas abiertas para Tripulante de Cabina (TCP) y Piloto Comercial.'},
+];
+const EN=20,EX=15;
+const easeIn=t=>{const t2=t*t;return t2*(3-2*t)};  // smooth-step (enter)
+const easeOut=t=>t*t;                                // accelerating (exit)
+
+const gl={
+  cards:[],
+
+  init(container){
+    for(const s of SCENES){
+      const el=document.createElement('div');
+      el.className=`gc p-${s.pos}`;
+      el.innerHTML=`<div class="gc__box"><span class="gc__accent">${s.accent}</span><div class="gc__title">${s.title}</div><p class="gc__sub">${s.sub}</p></div>`;
+      container.appendChild(el);
+      this.cards.push({el,ttl:el.querySelector('.gc__title'),fi:s.fi,fo:s.fo,pos:s.pos,_k:''});
+    }
+  },
+
+  update(frame){
+    for(const c of this.cards){
+      if(reducedMotion)continue; // CSS handles visibility
+      const eEnd=c.fi+EN,xStart=c.fo-EX;
+      let k,op,bl,sc,ty,cp;
+
+      if(frame<c.fi||frame>c.fo){
+        k='h';op=0;bl=10;sc=.82;ty=48;cp=100;
+      }else if(frame<eEnd){
+        const t=easeIn(clamp((frame-c.fi)/EN,0,1));
+        k='e'+(t*100|0);
+        op=t;bl=mix(10,0,t);sc=mix(.82,1,t);ty=mix(48,0,t);cp=mix(100,0,t);
+      }else if(frame>xStart){
+        const t=easeOut(clamp((frame-xStart)/EX,0,1));
+        k='x'+(t*100|0);
+        op=1-t;bl=mix(0,5,t);sc=mix(1,1.06,t);ty=mix(0,-20,t);cp=0;
+      }else{
+        k='v';op=1;bl=0;sc=1;ty=0;cp=0;
+      }
+
+      if(c._k===k)continue; // Dedupe: skip if identical quantized state
+      c._k=k;
+
+      const st=c.el.style;
+      st.opacity=op;
+      st.filter=`blur(${bl.toFixed(1)}px)`;
+      const pre=c.pos==='ct'?'translateX(-50%) ':'';
+      st.transform=`${pre}translateY(${ty.toFixed(1)}px) scale(${sc.toFixed(4)})`;
+      c.ttl.style.clipPath=`inset(0 ${cp.toFixed(1)}% 0 0)`;
+    }
+  }
+};
+
+/* ═══ 4. ParallaxSystem ═══════════════════════════════ */
+const px={
+  tx:0,ty:0,cx:0,cy:0,scene:null,
+
+  init(el){
+    this.scene=el;
+    if(reducedMotion)return;
+    el.style.perspective='1200px';
+    el.style.transformStyle='preserve-3d';
+    addEventListener('mousemove',e=>{
+      this.tx=(e.clientX/innerWidth)-.5;
+      this.ty=(e.clientY/innerHeight)-.5;
+    },{passive:true});
+    addEventListener('touchstart',()=>{this.tx=0;this.ty=0},{passive:true});
+  },
+
+  update(scrollSmooth){
+    if(reducedMotion||!this.scene)return;
+    this.cx=mix(this.cx,this.tx,0.05);
+    this.cy=mix(this.cy,this.ty,0.05);
+    const fade=clamp(1-scrollSmooth*3,0,1);
+    const rx=(this.cy*6*fade).toFixed(3);
+    const ry=(this.cx*-6*fade).toFixed(3);
+    this.scene.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+  }
+};
+
+/* ═══ 5. RAF Loop (single tick, reads-then-writes) ════ */
+function tick(){
+  // ── READS (batch all DOM reads first) ──
+  ss.read();
+
+  // ── COMPUTE (pure math, no DOM) ──
+  ss.compute();
+  const frame=ss.progress*(TOTAL-1);
+
+  // ── WRITES (batch all DOM mutations) ──
+  seq.render(frame,ss.velocity);
+  seq.prefetch(frame);
+  gl.update(frame);
+  px.update(ss.smooth);
+
+  requestAnimationFrame(tick);
+}
+
+/* ═══ Boot ════════════════════════════════════════════ */
+(async()=>{
+  const barEl=document.getElementById('pre-bar');
+  const pctEl=document.getElementById('pre-pct');
+  const preEl=document.getElementById('preloader');
+  const sceneEl=document.getElementById('scene');
+
+  seq.init(document.getElementById('cvs-a'),document.getElementById('cvs-b'));
+  ss.init();
+  gl.init(sceneEl);
+  px.init(sceneEl);
+
+  let n=0;
+  const prog=()=>{n++;barEl.style.width=((n/TOTAL)*100|0)+'%';pctEl.textContent=`${n} / ${TOTAL}`};
+
+  await seq.loadRange(1,EAGER,prog);
+  seq.render(0,0);
+
+  preEl.classList.add('done');
+  setTimeout(()=>preEl.remove(),800);
+  requestAnimationFrame(tick);
+
+  seq.loadRange(EAGER+1,TOTAL,prog);
+})();
+</script>
+</body>
+</html>

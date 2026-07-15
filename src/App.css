@@ -1,0 +1,6 @@
+/* App.css - Cleaned to prevent style conflicts with main design system */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

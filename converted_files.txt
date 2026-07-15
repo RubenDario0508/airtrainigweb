@@ -1,0 +1,29 @@
+Iniciando conversión de imágenes grandes a WebP sin pérdida...
+CONVERTED|Convalidaciones.jpg|Convalidaciones.webp
+CONVERTED|Despachador de Aeronaves.jpg|Despachador de Aeronaves.webp
+CONVERTED|DPA.jpg|DPA.webp
+CONVERTED|Nivelación Operacional.jpg|Nivelación Operacional.webp
+CONVERTED|PCA.jpg|PCA.webp
+CONVERTED|Piloto comercial de Avión.jpg|Piloto comercial de Avión.webp
+CONVERTED|Piloto privado de avión.jpg|Piloto privado de avión.webp
+CONVERTED|PPA.jpg|PPA.webp
+CONVERTED|TCP.jpg|TCP.webp
+CONVERTED|Tripulante de Cabina de pasajeros.jpg|Tripulante de Cabina de pasajeros.webp
+CONVERTED|Boeing HD.png|Boeing HD.webp
+CONVERTED|Cessna HD.png|Cessna HD.webp
+CONVERTED|Piper HD.png|Piper HD.webp
+CONVERTED|Simulador A320 HD.png|Simulador A320 HD.webp
+CONVERTED|Aviones Hangar.png|Aviones Hangar.webp
+CONVERTED|dpa mantenimiento.jpg|dpa mantenimiento.webp
+CONVERTED|estatico.jpg|estatico.webp
+CONVERTED|estatico_cropped.jpg|estatico_cropped.webp
+CONVERTED|FONDO 1.jpg|FONDO 1.webp
+CONVERTED|FONDO 2.jpg|FONDO 2.webp
+CONVERTED|FONDO 3.jpg|FONDO 3.webp
+CONVERTED|FONDO 4.jpg|FONDO 4.webp
+CONVERTED|logo-sky-hd-01-01.png|logo-sky-hd-01-01.webp
+CONVERTED|Mesadetrabajo1.png|Mesadetrabajo1.webp
+CONVERTED|BlogTCP_1.jpg|BlogTCP_1.webp
+CONVERTED|Mesadetrabajo1.jpg|Mesadetrabajo1.webp
+CONVERTED|Fondo Trabaja con Nosotros.jpg|Fondo Trabaja con Nosotros.webp
+CONVERTED|Instructores.png|Instructores.webp
