@@ -154,11 +154,17 @@ export const ProgramasPage: React.FC = () => {
                   {/* FRONT FACE */}
                   <div className="front face">
                     {/* Background Image */}
-                    <div style={{
-                      position: 'absolute', inset: 0, 
-                      backgroundImage: `url("${prog.image}")`, 
-                      backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundColor: '#0a0f1a'
-                    }} className="card-bg" />
+                    <img 
+                      src={prog.image} 
+                      alt={prog.title} 
+                      loading="lazy"
+                      style={{
+                        position: 'absolute', inset: 0, 
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center', backgroundColor: '#0a0f1a'
+                      }} 
+                      className="card-bg" 
+                    />
                     
                     {/* Gradient Overlay for readability at top and bottom */}
                     <div style={{
@@ -303,11 +309,17 @@ export const ProgramasPage: React.FC = () => {
                   {/* FRONT FACE */}
                   <div className="front face">
                     {/* Background Image */}
-                    <div style={{
-                      position: 'absolute', inset: 0, 
-                      backgroundImage: `url("${prog.image}")`, 
-                      backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundColor: '#0a0f1a'
-                    }} className="card-bg" />
+                    <img 
+                      src={prog.image} 
+                      alt={prog.title} 
+                      loading="lazy"
+                      style={{
+                        position: 'absolute', inset: 0, 
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center', backgroundColor: '#0a0f1a'
+                      }} 
+                      className="card-bg" 
+                    />
                     
                     {/* Gradient Overlay */}
                     <div style={{
