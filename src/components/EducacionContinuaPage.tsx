@@ -423,7 +423,7 @@ export const EducacionContinuaPage: React.FC = () => {
             Educación Continua
           </h1>
           <p className="anim-fade-up" style={{ fontSize: '1.1rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
-            Especialízate y avanza en tu carrera aeronáutica con nuestros cursos de extensión.
+            Especialízate y avanza en tu carrera aeronáutica con nuestros programas de educación continua.
           </p>
         </div>
       </section>

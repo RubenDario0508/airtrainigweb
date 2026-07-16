@@ -67,8 +67,9 @@ export const Footer: React.FC = () => {
                 <img
                   src="/icon_white.png"
                   alt="Air Training Industry"
-                  style={{ width: '280px', height: 'auto', objectFit: 'contain' }}
+                  style={{ width: '280px', height: 'auto', objectFit: 'contain', marginBottom: '10px' }}
                 />
+                <img loading="lazy" src="/footer/AboveThBest.png" alt="Above the best" style={{ height: '35px', objectFit: 'contain', alignSelf: 'center', margin: '0 auto' }} />
               </a>
 
               <div style={{
@@ -165,7 +166,7 @@ export const Footer: React.FC = () => {
               CONTÁCTANOS
             </h4>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
               <a href="https://wa.me/573214002431" target="_blank" rel="noopener noreferrer" className="footer-contact-pill whatsapp-pill" style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'transparent', border: '1px solid transparent', padding: '0.6rem 0.8rem', marginLeft: '-0.8rem', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s ease' }}>
                 <RiWhatsappLine size={26} style={{ color: '#25D366' }} />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -199,7 +200,7 @@ export const Footer: React.FC = () => {
               ADMISIONES
             </h4>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
               <FooterInfoItem icon={<RiFlightTakeoffLine size={20} />} label="Tripulante de Cabina (TCP)" />
               <FooterInfoItem icon={<RiPlaneLine size={20} style={{ transform: 'rotate(45deg)' }} />} label="Piloto Privado (PPA)" />
               <FooterInfoItem icon={<RiPlaneLine size={20} />} label="Piloto Comercial (PCA)" />
@@ -223,7 +224,7 @@ export const Footer: React.FC = () => {
               VISÍTANOS
             </h4>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
               <a href="https://maps.app.goo.gl/SiHT1cDnNTfQfUpt7" target="_blank" rel="noopener noreferrer" className="footer-sede-card-clean" style={{ display: 'flex', flexDirection: 'column', gap: '4px', background: 'transparent', border: '1px solid transparent', padding: '0.6rem 0.8rem', marginLeft: '-0.8rem', borderRadius: '8px', transition: 'all 0.3s ease', textDecoration: 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent-blue)', fontSize: '0.85rem', fontWeight: 800 }}>
                   <RiMapPinLine size={18} /> Sede Chía <RiExternalLinkLine size={12} style={{ marginLeft: 'auto', opacity: 0.5 }} />
@@ -243,14 +244,13 @@ export const Footer: React.FC = () => {
       
       <div style={{ width: '100%', position: 'relative', zIndex: 6 }}>
         <img loading="lazy" src="/footer/Franjaroja.png" alt="Línea decorativa roja" style={{ width: '100%', height: '4px', display: 'block', objectFit: 'cover' }} />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', padding: '1rem 4rem', backgroundColor: '#070c17' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', padding: '2rem 4rem', backgroundColor: '#070c17' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '0.65rem', color: '#ffffff', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 700 }}>
             <a href="#" className="footer-bottom-link" style={{ color: '#ffffff', textDecoration: 'none', transition: 'color 0.3s' }}>POLÍTICA DE PRIVACIDAD</a>
             <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
+            <a href="#pqrs" className="footer-bottom-link" style={{ color: '#ffffff', textDecoration: 'none', transition: 'color 0.3s' }}>PQRS</a>
+            <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
             <span>AIR TRAINING INDUSTRY S.A.S. © 2024</span>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img loading="lazy" src="/footer/AboveThBest.png" alt="Above the best" style={{ height: '35px', objectFit: 'contain' }} />
           </div>
           <div style={{ fontSize: '0.65rem', color: '#ffffff', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>CERTIFICADO POR LA AEROCIVIL DE COLOMBIA</div>
         </div>

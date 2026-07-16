@@ -272,6 +272,16 @@ class WordPressService {
       message: "Tu solicitud ha sido enviada con éxito. Por favor recuerda enviar tu comprobante de pago al correo indicado."
     };
   }
+
+  // Simular envío de PQRS
+  async submitPQRS(formData: FormData): Promise<{ success: boolean; message: string }> {
+    console.log("Enviando solicitud de PQRS a WordPress...", formData);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    return {
+      success: true,
+      message: "Tu solicitud de PQRS ha sido registrada con éxito. Se le ha asignado el número de radicado MOCK-" + Math.floor(Math.random() * 90000 + 10000) + ". Responderemos a tu correo en los términos legales."
+    };
+  }
 }
 
 export const wpService = new WordPressService();

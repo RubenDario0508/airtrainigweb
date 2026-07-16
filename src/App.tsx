@@ -23,10 +23,11 @@ const TrabajaConNosotrosPage = lazy(() => import('./components/TrabajaConNosotro
 const AdmisionPage = lazy(() => import('./components/AdmisionPage').then(m => ({ default: m.AdmisionPage })));
 const OperacionesPage = lazy(() => import('./components/OperacionesPage').then(m => ({ default: m.OperacionesPage })));
 const CertificadosYConstanciasPage = lazy(() => import('./components/CertificadosYConstanciasPage').then(m => ({ default: m.CertificadosYConstanciasPage })));
+const PqrsPage = lazy(() => import('./components/PqrsPage').then(m => ({ default: m.PqrsPage })));
 
 const App: React.FC = () => {
   const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones'>(() => {
+  const [currentPage, setCurrentPage] = useState<'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones' | 'pqrs'>(() => {
     // Detect page from URL hash on initial load
     const hash = window.location.hash;
     if (hash === '#programas') return 'programas';
@@ -46,6 +47,7 @@ const App: React.FC = () => {
     if (hash.startsWith('#admision-ppa')) return 'admision-ppa';
     if (hash.startsWith('#admision-complementarios')) return 'admision-complementarios';
     if (hash.startsWith('#operaciones')) return 'operaciones';
+    if (hash === '#pqrs') return 'pqrs';
     return 'home';
   });
 
@@ -70,6 +72,7 @@ const App: React.FC = () => {
       else if (hash.startsWith('#admision-ppa')) setCurrentPage('admision-ppa');
       else if (hash.startsWith('#admision-complementarios')) setCurrentPage('admision-complementarios');
       else if (hash.startsWith('#operaciones')) setCurrentPage('operaciones');
+      else if (hash === '#pqrs') setCurrentPage('pqrs');
       else {
         // Any other hashes (like #sedes, #pqrs, #home, or empty) belong to the 'home' page view
         setCurrentPage('home');
@@ -266,6 +269,8 @@ const App: React.FC = () => {
             <AdmisionPage programTitle="Convalidaciones - Nivelación Operacional" />
           ) : currentPage === 'operaciones' ? (
             <OperacionesPage />
+          ) : currentPage === 'pqrs' ? (
+            <PqrsPage theme={theme} />
           ) : (
             <BlogPage theme={theme} />
           )}

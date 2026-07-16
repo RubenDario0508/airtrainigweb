@@ -105,7 +105,7 @@ export const InfraestructuraPage: React.FC = () => {
             Infraestructura <br/> Tecnológica
           </h1>
           <p className="infra-hero-text" style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '2.5rem', opacity: 0.9 }}>
-            Nuestros escenarios cuentan con simuladores de alta tecnología desarrollados para optimizar tu aprendizaje y entrenamiento. Experimenta la sinergia perfecta entre instrucción humana y precisión técnica en busca de prepararte para superar tus desafíos en el ámbito aeronáutico.
+            Nuestros escenarios cuentan con simuladores de alta tecnología desarrollados para optimizar tu aprendizaje y entrenamiento. Experimenta la sinergia perfecta entre instrucción humana y precisión técnica en busca de prepararte para superar <br/> tus desafíos en el ámbito aeronáutico.
           </p>
           <div className="infra-hero-text" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <button 
@@ -146,7 +146,7 @@ export const InfraestructuraPage: React.FC = () => {
         </div>
 
         {/* Interactive Aircraft Map - FULL WIDTH */}
-        <div className="container anim-fade-up plane-hotspot-container" style={{ position: 'relative', width: '100%', maxWidth: '1100px', margin: '0 auto 4rem auto', padding: '2rem 0' }}>
+        <div className="container anim-fade-up plane-hotspot-container" style={{ position: 'relative', width: '100%', maxWidth: '1100px', margin: isMobile ? '0 auto 1rem auto' : '0 auto 4rem auto', padding: isMobile ? '1rem 0' : '2rem 0' }}>
           
           <div style={{ position: 'relative', width: '100%' }}>
             <img loading="lazy" 
@@ -282,7 +282,7 @@ export const InfraestructuraPage: React.FC = () => {
 
           {/* Description Text */}
           <p className="anim-fade-up" style={{ textAlign: 'center', maxWidth: '800px', margin: '2rem auto 3rem auto', fontSize: '1.1rem', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
-            El PA 28 Warrior es una aeronave monomotor de ala baja, diseñada específicamente para entrenamiento de vuelo. Su estabilidad, fácil manejo y excelente visibilidad la convierten en la elección perfecta para estudiantes de piloto.
+            El PA 28 Warrior es una aeronave monomotor de ala baja, diseñada específicamente para entrenamiento de vuelo. Su estabilidad, fácil manejo y excelente visibilidad la convierten en la elección perfecta para estudiantes piloto.
           </p>
 
           {/* Specifications Grid */}
@@ -409,7 +409,7 @@ export const InfraestructuraPage: React.FC = () => {
                     border: '1px solid var(--glass-border)'
                   }}>
                 <div style={{ width: '100%', height: '220px', position: 'relative', overflow: 'hidden' }}>
-                  <img loading="lazy" className="sim-img" src={sim.image} alt={sim.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transition: 'transform 0.6s ease', backgroundColor: '#0a0f1a' }} />
+                  <img loading="lazy" className="sim-img" src={sim.image} alt={sim.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)' }} />
                 </div>
                 <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative', zIndex: 2, background: 'var(--color-bg-secondary)' }}>

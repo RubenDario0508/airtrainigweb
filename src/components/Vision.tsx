@@ -115,10 +115,9 @@ export const Vision: React.FC = () => {
     >
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         
-        {/* CSS Injected for card hover and responsive design */}
         <style>{`
           .vision-card {
-            background: linear-gradient(95deg, #00032a 0%, #000ebd 100%);
+            background: #001287;
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 28px;
             padding: 3rem 2.5rem;
@@ -129,9 +128,9 @@ export const Vision: React.FC = () => {
           }
           .vision-card:hover {
             transform: translateY(-6px);
-            background: linear-gradient(95deg, #00053d 0%, #0012db 100%);
+            background: #000c66;
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 35px 60px rgba(0, 14, 189, 0.3), 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 35px 60px rgba(0, 12, 102, 0.3), 0 15px 30px rgba(0, 0, 0, 0.3);
           }
           .vision-card-icon {
             width: 72px;
@@ -171,7 +170,8 @@ export const Vision: React.FC = () => {
           <h2 className="stagger-item" style={{ 
             fontSize: 'clamp(2.2rem, 5vw, 3.2rem)', 
             fontWeight: 800, 
-            color: 'var(--color-text-primary)', 
+            color: '#ffffff', 
+            textShadow: '0 4px 15px rgba(0,0,0,0.6)',
             lineHeight: 1.1,
             margin: 0,
             transition: 'color 0.4s ease'
@@ -214,53 +214,53 @@ export const Vision: React.FC = () => {
           }}
         >
           {/* Stat 1 */}
-          <div className="glass-panel stagger-item stat-card" style={{ padding: '1rem', textAlign: 'center' }}>
-            <div style={{ color: '#e71a24', marginBottom: '0.6rem', display: 'flex', justifyContent: 'center' }}>
-              <RiAwardLine size={28} />
+          <div className="glass-panel stagger-item stat-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+            <div style={{ color: '#e71a24', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center' }}>
+              <RiAwardLine size={36} />
             </div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.3rem', transition: 'color 0.4s ease' }}>
+            <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.5rem', transition: 'color 0.4s ease' }}>
               <span style={{ color: '#e71a24' }}>+</span>{years}
             </div>
-            <div style={{ color: 'var(--color-text-secondary)', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
+            <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
               Años de Experiencia
             </div>
           </div>
 
           {/* Stat 2 */}
-          <div className="glass-panel stagger-item stat-card" style={{ padding: '1rem', textAlign: 'center' }}>
-            <div style={{ color: 'var(--color-text-primary)', marginBottom: '0.6rem', display: 'flex', justifyContent: 'center', transition: 'color 0.4s ease' }}>
-              <RiTeamLine size={28} />
+          <div className="glass-panel stagger-item stat-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+            <div style={{ color: 'var(--color-text-primary)', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center', transition: 'color 0.4s ease' }}>
+              <RiTeamLine size={36} />
             </div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.3rem', transition: 'color 0.4s ease' }}>
+            <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.5rem', transition: 'color 0.4s ease' }}>
               <span style={{ color: 'var(--color-text-primary)', transition: 'color 0.4s ease' }}>+</span>{pilots}
             </div>
-            <div style={{ color: 'var(--color-text-secondary)', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
+            <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
               Pilotos Graduados
             </div>
           </div>
 
           {/* Stat 3 */}
-          <div className="glass-panel stagger-item stat-card" style={{ padding: '1rem', textAlign: 'center' }}>
-            <div style={{ color: '#4a90d9', marginBottom: '0.6rem', display: 'flex', justifyContent: 'center' }}>
-              <RiCompassLine size={28} />
+          <div className="glass-panel stagger-item stat-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+            <div style={{ color: '#4a90d9', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center' }}>
+              <RiCompassLine size={36} />
             </div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.3rem', transition: 'color 0.4s ease' }}>
+            <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.5rem', transition: 'color 0.4s ease' }}>
               {sedes}
             </div>
-            <div style={{ color: 'var(--color-text-secondary)', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
+            <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
               Sedes (Chía / Ibagué)
             </div>
           </div>
 
           {/* Stat 4 */}
-          <div className="glass-panel stagger-item stat-card" style={{ padding: '1rem', textAlign: 'center' }}>
-            <div style={{ color: 'var(--color-text-secondary)', marginBottom: '0.6rem', display: 'flex', justifyContent: 'center', transition: 'color 0.4s ease' }}>
-              <RiShieldLine size={28} />
+          <div className="glass-panel stagger-item stat-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+            <div style={{ color: 'var(--color-text-secondary)', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center', transition: 'color 0.4s ease' }}>
+              <RiShieldLine size={36} />
             </div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.3rem', transition: 'color 0.4s ease' }}>
+            <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.5rem', transition: 'color 0.4s ease' }}>
               {pasion}<span style={{ color: '#e71a24' }}>%</span>
             </div>
-            <div style={{ color: 'var(--color-text-secondary)', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
+            <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', transition: 'color 0.4s ease' }}>
               Pasión por Volar
             </div>
           </div>

@@ -5,8 +5,8 @@ interface HeaderProps {
   onOpenEnrollment: () => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  setCurrentPage: (page: 'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones') => void;
-  currentPage: 'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones';
+  setCurrentPage: (page: 'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones' | 'pqrs') => void;
+  currentPage: 'home' | 'programas' | 'simuladores' | 'educacion' | 'sms' | 'mor' | 'biblioteca' | 'practicas-laborales' | 'alianzas-educativas' | 'blog' | 'trabaja-con-nosotros' | 'certificados' | 'certificados-constancias' | 'admision-dpa' | 'admision-tcp' | 'admision-pca' | 'admision-ppa' | 'admision-complementarios' | 'operaciones' | 'pqrs';
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment, theme, toggleTheme, setCurrentPage, currentPage }) => {
@@ -60,7 +60,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment, theme, toggleT
     { name: 'Blog', href: '#blog', pageId: 'blog', isDropdown: true, subLinks: [
       { name: 'Blog', href: '#blog', pageId: 'blog' },
       { name: 'Trabaja con Nosotros', href: '#trabaja-con-nosotros', pageId: 'trabaja-con-nosotros' },
-      { name: 'Certificaciones', href: '#certificados-constancias', pageId: 'certificados-constancias' }
+      { name: 'Certificaciones', href: '#certificados-constancias', pageId: 'certificados-constancias' },
+      { name: 'PQRS', href: '#pqrs', pageId: 'pqrs' }
     ] }
   ];
   const headerBgScrolled = theme === 'dark' ? 'rgba(7, 12, 23, 0.65)' : 'rgba(255, 255, 255, 0.85)';

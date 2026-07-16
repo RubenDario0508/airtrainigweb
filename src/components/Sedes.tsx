@@ -109,7 +109,7 @@ export const Sedes: React.FC = () => {
         pointerEvents: 'none'
       }} />
 
-      <div className="container" style={{ position: 'relative', zIndex: 4 }}>
+      <div className="container" style={{ position: 'relative', zIndex: 11 }}>
         
         {/* Section Header */}
         <div className="section-title-wrapper stagger-item">
@@ -158,8 +158,7 @@ export const Sedes: React.FC = () => {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'contain',
-                    backgroundColor: '#0a0f1a',
+                    objectFit: 'cover',
                     transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                   className="sede-img"
@@ -271,7 +270,7 @@ export const Sedes: React.FC = () => {
               Respaldo y Calidad
             </span>
             <h3 style={{ fontSize: '2.4rem', color: 'var(--sedes-title-color)', fontWeight: 800, lineHeight: 1.2 }}>
-              Avalados por la<br /><span style={{ color: 'var(--color-accent-blue)' }}>Excelencia Aeronáutica</span>
+              Avalados por la<br /><span style={{ color: 'var(--color-accent-red)' }}>Excelencia Aeronáutica</span>
             </h3>
             <div style={{ width: '60px', height: '4px', background: 'var(--color-accent-red)', borderRadius: '2px', marginTop: '0.5rem', marginBottom: '0.5rem' }} />
             <p style={{ color: 'var(--sedes-card-text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, textAlign: 'justify' }}>
