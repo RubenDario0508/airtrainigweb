@@ -120,7 +120,7 @@ export const AlianzasEducativasPage: React.FC = () => {
             
             {/* Logos horizontales alineados al centro */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '2rem' }}>
-               <img loading="lazy" src="/icon.png" alt="Air Training" style={{ height: 'clamp(45px, 6vw, 65px)', objectFit: 'contain' }} />
+               <img loading="lazy" src="/icon_white.png" alt="Air Training" style={{ height: 'clamp(45px, 6vw, 65px)', objectFit: 'contain' }} />
                <img loading="lazy" src="/imgpag7/logo-sky-hd-01-01.webp" alt="Sky Club" style={{ height: 'clamp(55px, 8vw, 75px)', objectFit: 'contain', backgroundColor: '#fff', borderRadius: '50%', padding: '5px' }} />
             </div>
 
@@ -321,7 +321,7 @@ export const AlianzasEducativasPage: React.FC = () => {
             
             {/* Logos horizontales alineados al centro */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '2rem' }}>
-               <img loading="lazy" src="/icon.png" alt="Air Training" style={{ height: 'clamp(45px, 6vw, 65px)', objectFit: 'contain' }} />
+               <img loading="lazy" src="/icon_white.png" alt="Air Training" style={{ height: 'clamp(45px, 6vw, 65px)', objectFit: 'contain' }} />
                <img loading="lazy" src="/imgpag7/logo-sky-hd-01-01.webp" alt="Sky Club" style={{ height: 'clamp(55px, 8vw, 75px)', objectFit: 'contain', backgroundColor: '#fff', borderRadius: '50%', padding: '5px' }} />
             </div>
 

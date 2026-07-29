@@ -64,10 +64,7 @@ export class DustParticles {
     // Mouse tracking
     window.addEventListener('mousemove', this._onMouse, { passive: true });
     window.addEventListener('resize', this._onResize, { passive: true });
-    window.addEventListener('touchstart', () => {
-      this.targetMouseX = 0;
-      this.targetMouseY = 0;
-    }, { passive: true });
+    window.addEventListener('touchstart', this._onTouchStart, { passive: true });
   }
 
   private _onMouse = (e: MouseEvent) => {
@@ -77,6 +74,11 @@ export class DustParticles {
   };
 
   private _onResize = () => this.resize();
+
+  private _onTouchStart = () => {
+    this.targetMouseX = 0;
+    this.targetMouseY = 0;
+  };
 
   private resize(): void {
     const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for perf
@@ -173,6 +175,7 @@ export class DustParticles {
   destroy(): void {
     window.removeEventListener('mousemove', this._onMouse);
     window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('touchstart', this._onTouchStart);
     this.canvas.remove();
     this.particles = [];
   }

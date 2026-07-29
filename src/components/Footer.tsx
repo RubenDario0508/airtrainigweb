@@ -133,7 +133,7 @@ export const Footer: React.FC = () => {
               width: '100%'
             }}>
               <p style={{ marginBottom: '1.2rem' }}>Centro de instrucción aeronáutica certificado<br/>por la aerocivil.</p>
-              <p>Elevamos el <strong style={{ color: '#ff0000', fontWeight: 800 }}>talento aeronáutico</strong><br/>que transforma el <strong style={{ color: '#00d2ff', fontWeight: 800 }}>futuro de la aviación.</strong></p>
+              <p>Elevamos el <strong style={{ color: '#ff0000', fontWeight: 800 }}>talento aeronáutico</strong><br/>que transforma el <strong style={{ color: '#ffffff', fontWeight: 800 }}>futuro de la aviación.</strong></p>
             </div>
 
             {/* Redes Sociales Clean & Minimalist */}

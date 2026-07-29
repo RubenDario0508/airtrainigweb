@@ -69,6 +69,7 @@ export class ScrollParallax {
   private _onMouseMove: (e: MouseEvent) => void;
   private _onScroll: () => void;
   private _onResize: () => void;
+  private _onTouchStart: () => void;
   private _tick: () => void;
 
   constructor(config: ScrollParallaxConfig = {}) {
@@ -82,6 +83,10 @@ export class ScrollParallax {
     this._onMouseMove = this.handleMouseMove.bind(this);
     this._onScroll = this.handleScroll.bind(this);
     this._onResize = this.handleResize.bind(this);
+    this._onTouchStart = () => {
+      this.targetX = 0;
+      this.targetY = 0;
+    };
     this._tick = this.tick.bind(this);
   }
 
@@ -115,12 +120,7 @@ export class ScrollParallax {
     window.addEventListener('mousemove', this._onMouseMove, { passive: true });
     window.addEventListener('scroll', this._onScroll, { passive: true });
     window.addEventListener('resize', this._onResize, { passive: true });
-
-    // Touch → reset to center so mobile doesn't get stuck with offset
-    window.addEventListener('touchstart', () => {
-      this.targetX = 0;
-      this.targetY = 0;
-    }, { passive: true });
+    window.addEventListener('touchstart', this._onTouchStart, { passive: true });
 
     // Start rAF
     this.isDestroyed = false;
@@ -138,6 +138,7 @@ export class ScrollParallax {
     window.removeEventListener('mousemove', this._onMouseMove);
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('touchstart', this._onTouchStart);
 
     // Remove will-change to free compositor memory
     for (const layer of this.layers) {

@@ -184,19 +184,25 @@ class WordPressService {
     if (this.useRealApi) {
       try {
         const response = await fetch(`${this.apiUrl}/wp-json/wp/v2/posts?_embed`);
+        if (!response.ok) {
+          throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+        }
         const data = await response.json();
+        if (!Array.isArray(data)) {
+          throw new Error("Respuesta de API inválida: Se esperaba una lista de posts.");
+        }
         return data.map((post: WordPressAPIPost) => ({
           id: post.id,
-          title: post.title.rendered,
-          excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, '').slice(0, 150) + '...',
-          content: post.content.rendered,
-          date: new Date(post.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }),
-          featured_media: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80",
+          title: post.title?.rendered || "Sin título",
+          excerpt: (post.excerpt?.rendered || "").replace(/<[^>]*>/g, '').slice(0, 150) + '...',
+          content: post.content?.rendered || "",
+          date: post.date ? new Date(post.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : "",
+          featured_media: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/imgpag8/instagram_1.jpg",
           slug: post.slug,
-          category: (post.categories_names && post.categories_names[0]) || "Noticias ATI"
+          category: (post.categories_names && (post.categories_names[0] as WordPressPost['category'])) || "Noticias ATI"
         }));
       } catch (error) {
-        console.error("Error al conectar con la API de WordPress, cargando Mock Data:", error);
+        console.error("Error al conectar con la API de WordPress, activando Mock Data de respaldo:", error);
         return MOCK_POSTS;
       }
     }

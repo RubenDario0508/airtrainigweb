@@ -57,24 +57,31 @@ export const BlogPage: React.FC<BlogPageProps> = ({ theme }) => {
     fetchPosts();
   }, []);
 
-  // Intelligent Search Bar Hiding/Showing
+  // Intelligent Search Bar Hiding/Showing (rAF Throttled for performance)
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let ticking = false;
     
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Hide if scrolling down past hero, show if scrolling up
-      if (currentScrollY > 300) {
-        if (currentScrollY > lastScrollY + 15) {
-          setIsSearchVisible(false); // Down
-        } else if (currentScrollY < lastScrollY - 15) {
-          setIsSearchVisible(true);  // Up
-        }
-      } else {
-        setIsSearchVisible(true);    // Near top
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Hide if scrolling down past hero, show if scrolling up
+          if (currentScrollY > 300) {
+            if (currentScrollY > lastScrollY + 15) {
+              setIsSearchVisible(false); // Down
+            } else if (currentScrollY < lastScrollY - 15) {
+              setIsSearchVisible(true);  // Up
+            }
+          } else {
+            setIsSearchVisible(true);    // Near top
+          }
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
-      lastScrollY = currentScrollY;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -84,7 +91,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ theme }) => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     
     return () => {
       window.removeEventListener('scroll', handleScroll);

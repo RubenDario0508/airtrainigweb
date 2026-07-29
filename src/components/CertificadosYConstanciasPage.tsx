@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { 
-  RiInformationLine, 
   RiMoneyDollarCircleLine, 
   RiBankLine,
   RiSendPlaneLine,
   RiTimeLine,
-  RiLockPasswordLine,
   RiLoader4Line,
   RiCheckLine,
   RiMailSendLine,
-  RiArticleLine
+  RiArticleLine,
+  RiFileCopyLine,
+  RiShieldCheckLine,
+  RiPriceTag3Line,
+  RiCheckboxCircleFill
 } from 'react-icons/ri';
 import { wpService } from '../services/wordpressMock';
 import './BlogPage.css'; 
@@ -19,6 +21,11 @@ interface CertificadosYConstanciasPageProps {
 }
 
 export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPageProps> = ({ theme }) => {
+  const step1Ref = React.useRef<HTMLDivElement>(null);
+  const step2Ref = React.useRef<HTMLDivElement>(null);
+  const step3Ref = React.useRef<HTMLDivElement>(null);
+  const step4Ref = React.useRef<HTMLDivElement>(null);
+
   const [formData, setFormData] = useState({
     correo: '',
     vinculacion: '',
@@ -31,6 +38,18 @@ export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPage
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copiedAccount, setCopiedAccount] = useState(false);
+
+  const scrollToStep = (stepNumber: number) => {
+    const refs = [step1Ref, step2Ref, step3Ref, step4Ref];
+    const targetRef = refs[stepNumber - 1];
+    if (targetRef && targetRef.current) {
+      const yOffset = -100;
+      const element = targetRef.current;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   const certificadosOptions = [
     'CERTIFICADO DE ESTUDIO',
@@ -45,22 +64,27 @@ export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPage
     'PAZ Y SALVO'
   ];
 
+  const handleCopyAccount = () => {
+    navigator.clipboard.writeText('241-005348');
+    setCopiedAccount(true);
+    setTimeout(() => setCopiedAccount(false), 2500);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, vinculacion: e.target.value }));
+  const handleRadioChange = (val: string) => {
+    setFormData(prev => ({ ...prev, vinculacion: val }));
   };
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+  const handleCheckboxChange = (value: string) => {
     setFormData(prev => {
-      if (checked) {
-        return { ...prev, tiposCertificado: [...prev.tiposCertificado, value] };
-      } else {
+      if (prev.tiposCertificado.includes(value)) {
         return { ...prev, tiposCertificado: prev.tiposCertificado.filter(item => item !== value) };
+      } else {
+        return { ...prev, tiposCertificado: [...prev.tiposCertificado, value] };
       }
     });
   };
@@ -110,49 +134,52 @@ export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPage
     }
   };
 
-  const cardStyle = {
-    background: theme === 'dark' ? '#0c1424' : '#ffffff',
-    padding: '1.5rem',
-    borderRadius: '16px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-    marginBottom: '1.5rem',
-    border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'}`,
-    boxSizing: 'border-box' as const,
-    overflow: 'hidden' as const,
-    maxWidth: '100%'
-  };
+  // Flat Corporate Theme Tokens & Refined Internal Spacing
+  const isDark = theme === 'dark';
+  const cardBg = isDark ? '#0c1424' : '#ffffff';
+  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)';
+  const textColor = isDark ? '#ffffff' : '#151e2e';
+  const textMuted = isDark ? 'rgba(255, 255, 255, 0.7)' : '#475569';
+  const inputBg = isDark ? 'rgba(255, 255, 255, 0.05)' : '#f8fafc';
+  const inputBorder = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)';
+  const brandRed = '#d3121b';
 
-  const iconStyle = {
-    color: 'var(--color-accent-blue)',
-    fontSize: '1.8rem',
-    marginRight: '1rem',
-    marginTop: '0.2rem'
+  const cardStyle = {
+    background: cardBg,
+    padding: 'clamp(2rem, 3.5vw, 2.8rem)',
+    borderRadius: '16px',
+    border: `1px solid ${cardBorder}`,
+    boxSizing: 'border-box' as const,
+    marginBottom: '2rem'
   };
 
   const inputStyle = {
     width: '100%',
-    padding: '1rem',
-    borderRadius: '8px',
-    border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.2)'}`,
-    background: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#f9fafb',
-    color: 'var(--color-text-primary)',
-    fontSize: '0.95rem',
+    padding: '0.85rem 1.1rem',
+    borderRadius: '10px',
+    border: `1px solid ${inputBorder}`,
+    background: inputBg,
+    color: textColor,
+    fontSize: '0.92rem',
     outline: 'none',
-    transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+    boxSizing: 'border-box' as const,
+    transition: 'border-color 0.2s ease',
   };
 
   const labelStyle = {
     display: 'block',
-    marginBottom: '0.8rem',
-    fontSize: '0.9rem',
-    fontWeight: 700,
+    marginBottom: '0.55rem',
+    fontSize: '0.84rem',
+    fontWeight: 800,
+    letterSpacing: '0.5px',
     textTransform: 'uppercase' as const,
-    color: 'var(--color-text-primary)'
+    color: textColor
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--color-bg-secondary)', color: 'var(--color-text-primary)', minHeight: '100vh', paddingBottom: '4rem', overflowX: 'hidden' }}>
-      {/* 1. Hero Section */}
+    <div style={{ backgroundColor: 'var(--color-bg-secondary)', color: textColor, minHeight: '100vh', paddingBottom: '5rem', overflowX: 'hidden' }}>
+      
+      {/* 1. Hero Section con Texto Conciso Solicitado por el Cliente */}
       <section 
         className="blog-header works-hero"
         style={{ 
@@ -167,261 +194,495 @@ export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPage
         }}
       >
         <div className="blog-header-content" style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', textAlign: 'center', boxSizing: 'border-box' }}>
-          <h1 style={{ textTransform: 'none', fontSize: 'clamp(2rem, 8vw, 3.5rem)', margin: 0, color: '#ffffff', fontWeight: 800, wordWrap: 'break-word' }}>Certificaciones</h1>
+          <h1 style={{ textTransform: 'none', fontSize: 'clamp(2rem, 8vw, 3.5rem)', margin: 0, color: '#ffffff', fontWeight: 800, wordWrap: 'break-word' }}>
+            Certificaciones
+          </h1>
           <p style={{ textTransform: 'none', color: '#ffffff', fontSize: 'clamp(1rem, 4vw, 1.3rem)', marginTop: '1rem', lineHeight: '1.6', maxWidth: '800px', margin: '1rem auto 0', wordWrap: 'break-word' }}>
             Solicita tus certificaciones de forma fácil, segura y rápida.
           </p>
         </div>
       </section>
 
-      {/* 2. Main Content Section */}
-      <section style={{ maxWidth: '1400px', margin: '-2rem auto 0', padding: '0 1rem', position: 'relative', zIndex: 10, boxSizing: 'border-box', width: '100%' }}>
-        <div className="certificados-grid">
-          
-          {/* Left Column: Info Blocks */}
-          <div className="certificados-info">
-            
-            <div style={cardStyle}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <RiInformationLine style={iconStyle} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0.3rem 0 0 0', color: 'var(--color-accent-red)' }}>INFORMACIÓN IMPORTANTE</h3>
-              </div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                <li style={{ display: 'flex', gap: '10px' }}>
-                  <RiMailSendLine style={{ color: 'var(--color-accent-blue)', fontSize: '1.2rem', flexShrink: 0, marginTop: '3px' }} />
-                  <span style={{ fontSize: '0.85rem', lineHeight: 1.5, overflowWrap: 'break-word', wordBreak: 'break-word', textAlign: 'justify' }}>Tu solicitud será enviada al correo <strong style={{ color: theme === 'dark' ? '#ffffff' : 'var(--color-accent-blue)', fontSize: '0.78rem', letterSpacing: '-0.3px', overflowWrap: 'break-word', wordBreak: 'break-word' }}>coordinacionacademica@airtrainingacademia.com</strong>, quien se encargará de validarla y procesarla.</span>
-                </li>
-                <li style={{ display: 'flex', gap: '10px' }}>
-                  <RiTimeLine style={{ color: 'var(--color-accent-blue)', fontSize: '1.2rem', flexShrink: 0, marginTop: '3px' }} />
-                  <span style={{ fontSize: '0.9rem', lineHeight: 1.5, textAlign: 'justify' }}>El tiempo de respuesta puede variar entre <strong>2 a 4 días hábiles.</strong></span>
-                </li>
-                <li style={{ display: 'flex', gap: '10px' }}>
-                  <RiCheckLine style={{ color: 'var(--color-accent-blue)', fontSize: '1.2rem', flexShrink: 0, marginTop: '3px' }} />
-                  <span style={{ fontSize: '0.9rem', lineHeight: 1.5, textAlign: 'justify' }}>Una vez validada la información, el certificado será enviado al correo registrado.</span>
-                </li>
-              </ul>
-            </div>
-
-            <div style={cardStyle}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <RiMoneyDollarCircleLine style={iconStyle} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0.3rem 0 0 0', color: 'var(--color-accent-red)' }}>1. COSTOS</h3>
-              </div>
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-accent-blue)', marginBottom: '0.5rem' }}>Certificados generales</h4>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.8rem', fontStyle: 'italic' }}>
-                  (Certificado de Estudio, Certificado de Notas, Certificado de Costos Educativos, Certificado de Convivencia, Certificado de Matrícula, Paz y Salvo, Validación Puesto Ocupado, Autenticidad)
-                </p>
-                <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', lineHeight: 1.6 }}>
-                  <li>Estudiante matriculado (Activo): <strong>$30.000</strong></li>
-                  <li>Estudiante retirado (Inactivo): <strong>$35.000</strong></li>
-                  <li>Egresado: <strong>$30.000</strong></li>
-                </ul>
+      {/* 2. Stepper Horizontal Interactivo (Pasos 1 a 4 con click navegable) */}
+      <section style={{ maxWidth: '1280px', margin: '-2.5rem auto 3rem', padding: '0 1.5rem', position: 'relative', zIndex: 10 }}>
+        <div style={{
+          background: cardBg,
+          borderRadius: '16px',
+          padding: '1.5rem 2rem',
+          border: `1px solid ${cardBorder}`,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '1.5rem'
+        }}>
+          {[
+            { step: 1, title: '1. Tarifas', desc: 'Conoce los costos según tu documento', icon: <RiPriceTag3Line size={22} /> },
+            { step: 2, title: '2. Pago Bancario', desc: 'Cta. Corriente Banco de Occidente', icon: <RiBankLine size={22} /> },
+            { step: 3, title: '3. Solicitud', desc: 'Diligencia tus datos en el formulario', icon: <RiArticleLine size={22} /> },
+            { step: 4, title: '4. Recepción', desc: 'Recibe en tu e-mail en 2 a 4 días hábiles', icon: <RiMailSendLine size={22} /> }
+          ].map((item, idx) => (
+            <div 
+              key={idx} 
+              onClick={() => scrollToStep(item.step)}
+              title={`Ir al ${item.title}`}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '14px',
+                borderRight: idx < 3 ? `1px solid ${cardBorder}` : 'none',
+                paddingRight: idx < 3 ? '1.2rem' : 0,
+                cursor: 'pointer',
+                transition: 'transform 0.2s ease, opacity 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <div style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '10px',
+                background: brandRed,
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 900,
+                fontSize: '1.1rem',
+                flexShrink: 0
+              }}>
+                {item.icon}
               </div>
               <div>
-                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-accent-blue)', marginBottom: '0.5rem' }}>Certificados especiales</h4>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.8rem', fontStyle: 'italic' }}>
-                  (Contenidos Programáticos, Copia del Acta de Grado, Copia del Diploma)
-                </p>
-                <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', lineHeight: 1.6 }}>
-                  <li>Estudiante matriculado (Activo): <strong>$80.000</strong></li>
-                  <li>Estudiante retirado (Inactivo): <strong>$96.000</strong></li>
-                  <li>Egresado: <strong>$80.000</strong></li>
-                </ul>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '0.95rem', fontWeight: 800, color: textColor }}>{item.title}</h4>
+                <p style={{ margin: 0, fontSize: '0.82rem', color: textMuted, lineHeight: 1.45 }}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. Contenedor Principal */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
+        
+        {/* Pasos 1 y 2: Tarjetas de Información Pre-Formulario */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '2.5rem' }}>
+          
+          {/* Paso 1: Tarifas Oficiales */}
+          <div ref={step1Ref} style={{ ...cardStyle, marginBottom: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem', borderBottom: `1px solid ${cardBorder}`, paddingBottom: '0.8rem' }}>
+              <div style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '8px',
+                background: 'rgba(211, 18, 27, 0.1)',
+                color: brandRed,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <RiMoneyDollarCircleLine size={22} />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 900, color: textColor }}>PASO 1: TARIFAS OFICIALES</h3>
+                <span style={{ fontSize: '0.78rem', color: textMuted }}>Precios vigentes para estudiantes y egresados</span>
               </div>
             </div>
 
-            <div style={cardStyle}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                <RiBankLine style={iconStyle} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0.3rem 0 0 0', color: 'var(--color-accent-red)' }}>2. MEDIO DE PAGO</h3>
+            {/* Generales */}
+            <div style={{ marginBottom: '1.2rem', background: inputBg, padding: '1.2rem', borderRadius: '12px', border: `1px solid ${inputBorder}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: textColor }}>Certificados Generales</h4>
+                <span style={{ fontSize: '0.75rem', fontWeight: 900, color: brandRed, background: 'rgba(211, 18, 27, 0.1)', padding: '3px 8px', borderRadius: '6px' }}>$30.000 / $35.000</span>
               </div>
-              <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>Todos los pagos deben realizarse a la siguiente cuenta:</p>
-              <div style={{ background: 'var(--color-bg-secondary)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-accent-blue)' }}>
-                <div className="bank-grid" style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0.5rem', fontSize: '0.85rem' }}>
-                  <strong>Banco:</strong> <span>BANCO DE OCCIDENTE</span>
-                  <strong>Tipo de cuenta:</strong> <span>CUENTA CORRIENTE</span>
-                  <strong>Nro. cuenta:</strong> <span>241-005348</span>
-                  <strong>A nombre de:</strong> <span>AIR TRAINING INDUSTRY SAS</span>
-                </div>
-              </div>
-            </div>
-
-            <div style={cardStyle}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <RiSendPlaneLine style={iconStyle} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0.3rem 0 0 0', color: 'var(--color-accent-red)' }}>3. ENVÍO DE COMPROBANTE</h3>
-              </div>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.5, textAlign: 'justify' }}>
-                Después de realizar el pago, debe enviar el comprobante al correo electrónico: <br/>
-                <strong style={{ color: theme === 'dark' ? '#ffffff' : 'var(--color-accent-blue)', display: 'inline-block', fontSize: '0.8rem', letterSpacing: '-0.3px' }}>coordinacionacademica@airtrainingacademia.com</strong><br/><br/>
-                Una vez validada la información, el certificado será enviado al correo registrado en un plazo de 2 a 4 días hábiles.
+              <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.8rem', color: textMuted, fontStyle: 'italic', lineHeight: 1.45 }}>
+                Estudio, Notas, Costos Educativos, Convivencia, Matrícula, Cursó y Aprobó, Paz y Salvo, Autenticidad.
               </p>
-            </div>
-
-            <div style={cardStyle}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <RiTimeLine style={iconStyle} />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0.3rem 0 0 0', color: 'var(--color-accent-red)' }}>4. TIEMPO DE ENTREGA</h3>
-              </div>
-              <p style={{ fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '1rem' }}>Por favor tenga en cuenta que el tiempo de entrega puede variar dependiendo del tipo de solicitud:</p>
-              <div style={{ fontSize: '0.85rem', lineHeight: 1.5, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-                  <RiCheckLine style={{ color: 'var(--color-accent-blue)', fontSize: '1.2rem', flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <strong>CONSTANCIA DE ESTUDIO, CERTIFICADO DE COSTOS, CERTIFICADO DE CONVIVENCIA Y PAZ Y SALVO:</strong><br/>
-                    <span style={{ color: 'var(--color-accent-red)', fontWeight: 600 }}>De 2 a 4 días hábiles posteriores al pago.</span>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-                  <RiCheckLine style={{ color: 'var(--color-accent-blue)', fontSize: '1.2rem', flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <strong>CERTIFICADO DE NOTAS:</strong><br/>
-                    <span style={{ color: 'var(--color-accent-red)', fontWeight: 600 }}>De 4 a 5 días hábiles posteriores al pago.</span>
-                  </div>
-                </div>
+              <div style={{ display: 'flex', gap: '20px', fontSize: '0.85rem', fontWeight: 700, color: textColor, paddingTop: '0.4rem', borderTop: `1px solid ${cardBorder}` }}>
+                <span>Activo/Egresado: <strong style={{ color: brandRed }}>$30.000</strong></span>
+                <span>Inactivo: <strong style={{ color: brandRed }}>$35.000</strong></span>
               </div>
             </div>
 
-            <div style={{ ...cardStyle, background: 'rgba(37, 99, 235, 0.05)', border: '1px solid rgba(37, 99, 235, 0.2)' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <RiLockPasswordLine style={{ color: 'var(--color-accent-blue)', fontSize: '2rem', marginRight: '1rem' }} />
-                <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-accent-blue)' }}>Tus datos están protegidos y serán utilizados únicamente para gestionar tu solicitud.</p>
+            {/* Especiales */}
+            <div style={{ background: inputBg, padding: '1.2rem', borderRadius: '12px', border: `1px solid ${inputBorder}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 800, color: textColor }}>Certificados Especiales</h4>
+                <span style={{ fontSize: '0.75rem', fontWeight: 900, color: brandRed, background: 'rgba(211, 18, 27, 0.1)', padding: '3px 8px', borderRadius: '6px' }}>$80.000 / $96.000</span>
+              </div>
+              <p style={{ margin: '0 0 0.8rem 0', fontSize: '0.8rem', color: textMuted, fontStyle: 'italic', lineHeight: 1.45 }}>
+                Contenidos Programáticos, Copia de Acta de Grado, Copia de Diploma.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', fontSize: '0.85rem', fontWeight: 700, color: textColor, paddingTop: '0.4rem', borderTop: `1px solid ${cardBorder}` }}>
+                <span>Activo/Egresado: <strong style={{ color: brandRed }}>$80.000</strong></span>
+                <span>Inactivo: <strong style={{ color: brandRed }}>$96.000</strong></span>
               </div>
             </div>
-
           </div>
 
-          {/* Right Column: Form */}
-          <div className="certificados-form" style={{ background: theme === 'dark' ? '#0c1424' : '#ffffff', border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'}`, padding: 'clamp(1.5rem, 4vw, 3rem)', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}>
-            
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '2px solid var(--color-border)', paddingBottom: '1rem' }}>
-              <RiArticleLine style={{ color: 'var(--color-accent-red)', fontSize: '2rem', marginRight: '1rem' }} />
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0 }}>FORMULARIO DE SOLICITUD</h2>
+          {/* Paso 2: Datos Bancarios */}
+          <div ref={step2Ref} style={{ ...cardStyle, marginBottom: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem', borderBottom: `1px solid ${cardBorder}`, paddingBottom: '0.8rem' }}>
+              <div style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '8px',
+                background: 'rgba(211, 18, 27, 0.1)',
+                color: brandRed,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <RiBankLine size={22} />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 900, color: textColor }}>PASO 2: DATOS BANCARIOS</h3>
+                <span style={{ fontSize: '0.78rem', color: textMuted }}>Cuenta institucional autorizada</span>
+              </div>
             </div>
-            
-            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '2.5rem', fontSize: '0.95rem' }}>
-              Por favor diligencia todos los campos del formulario.
+
+            <p style={{ margin: '0 0 1.2rem 0', fontSize: '0.88rem', color: textMuted, lineHeight: 1.55 }}>
+              Realiza la consignación o transferencia bancaria en la siguiente cuenta antes de diligenciar el formulario:
             </p>
 
-            {submitSuccess ? (
-              <div style={{ background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', color: '#16a34a', padding: '3rem 2rem', borderRadius: '12px', textAlign: 'center', animation: 'fadeIn 0.5s ease' }}>
-                <RiCheckLine size={64} style={{ marginBottom: '1.5rem', color: '#22c55e' }} />
-                <h3 style={{ margin: '0 0 1rem 0', fontWeight: 800, fontSize: '1.5rem' }}>¡Solicitud Enviada Exitosamente!</h3>
-                <p style={{ margin: 0, lineHeight: 1.6, fontSize: '1.1rem' }}>{submitSuccess}</p>
-                <button 
-                  onClick={() => setSubmitSuccess(null)}
-                  style={{ marginTop: '2rem', padding: '0.8rem 2rem', background: '#22c55e', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontWeight: 700, fontSize: '1rem' }}
-                >
-                  Diligenciar nuevo formulario
-                </button>
+            <div style={{ background: inputBg, padding: '1.2rem', borderRadius: '14px', border: `1px solid ${inputBorder}`, marginTop: 'auto' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '0.6rem', fontSize: '0.88rem', color: textColor, lineHeight: 1.5 }}>
+                <strong style={{ fontWeight: 800 }}>Banco:</strong> <span>BANCO DE OCCIDENTE</span>
+                <strong style={{ fontWeight: 800 }}>Tipo Cuenta:</strong> <span>CUENTA CORRIENTE</span>
+                <strong style={{ fontWeight: 800 }}>Nro. Cuenta:</strong> 
+                <span style={{ fontSize: '1.15rem', fontWeight: 900, color: brandRed, letterSpacing: '0.5px' }}>
+                  241-005348
+                </span>
+                <strong style={{ fontWeight: 800 }}>Titular:</strong> <span>AIR TRAINING INDUSTRY SAS</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                  <div className="input-group">
-                    <label style={labelStyle}>CORREO ELECTRÓNICO <span style={{color:'red'}}>*</span></label>
-                    <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} required placeholder="Tu respuesta" style={inputStyle} />
+
+              {/* Botón plano Copiar Cuenta */}
+              <button 
+                type="button"
+                onClick={handleCopyAccount}
+                style={{
+                  marginTop: '1.2rem',
+                  width: '100%',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '10px',
+                  background: copiedAccount ? '#22c55e' : brandRed,
+                  color: '#ffffff',
+                  border: 'none',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  transition: 'background 0.2s ease'
+                }}
+              >
+                {copiedAccount ? (
+                  <><RiCheckLine size={18} /> ¡Número de cuenta copiado!</>
+                ) : (
+                  <><RiFileCopyLine size={18} /> Copiar Número de Cuenta Bancaria</>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Paso 3: Formulario Digital de Solicitud (Espacios e Intersustancias Perfeccionadas) */}
+        <div ref={step3Ref} style={cardStyle}>
+          
+          {/* Header del Formulario */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '2.2rem', borderBottom: `2px solid ${cardBorder}`, paddingBottom: '1.2rem' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '10px',
+              background: brandRed,
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 900,
+              fontSize: '1.2rem'
+            }}>
+              3
+            </div>
+            <div>
+              <h2 style={{ fontSize: '1.35rem', fontWeight: 900, margin: 0, color: textColor }}>
+                PASO 3: FORMULARIO DIGITAL DE SOLICITUD
+              </h2>
+              <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: textMuted }}>
+                Ingresa tus datos personales, marca los certificados solicitados e incluye la información del comprobante.
+              </p>
+            </div>
+          </div>
+
+          {submitSuccess ? (
+            <div style={{ background: 'rgba(34, 197, 94, 0.08)', border: '1px solid #22c55e', color: '#16a34a', padding: '3rem 2rem', borderRadius: '16px', textAlign: 'center' }}>
+              <RiCheckboxCircleFill size={64} style={{ marginBottom: '1rem', color: '#22c55e' }} />
+              <h3 style={{ margin: '0 0 0.8rem 0', fontWeight: 900, fontSize: '1.6rem' }}>¡Solicitud Enviada con Éxito!</h3>
+              <p style={{ margin: '0 auto', maxWidth: '650px', lineHeight: 1.6, fontSize: '1.05rem', color: textColor }}>{submitSuccess}</p>
+              <button 
+                type="button"
+                onClick={() => setSubmitSuccess(null)}
+                style={{ marginTop: '2rem', padding: '0.8rem 2.2rem', background: '#22c55e', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontWeight: 800, fontSize: '0.95rem' }}
+              >
+                Diligenciar una nueva solicitud
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2.2rem' }}>
+              
+              {/* Bloque A: Datos del Solicitante (Espacios Ajustados) */}
+              <div style={{ background: inputBg, padding: '1.6rem 2rem', borderRadius: '14px', border: `1px solid ${inputBorder}` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.4rem' }}>
+                  <div style={{ width: '4px', height: '18px', background: brandRed, borderRadius: '2px' }} />
+                  <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 900, color: textColor }}>
+                    A. DATOS DEL SOLICITANTE
+                  </h4>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.8rem', alignItems: 'start' }}>
+                  <div>
+                    <label style={labelStyle}>CORREO ELECTRÓNICO INSTITUCIONAL / PERSONAL <span style={{ color: brandRed }}>*</span></label>
+                    <input 
+                      type="email" 
+                      name="correo" 
+                      value={formData.correo} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="ejemplo@correo.com" 
+                      style={inputStyle} 
+                    />
                   </div>
-                  <div className="input-group" style={{ border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.2)'}`, background: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#f9fafb', padding: '1.5rem', borderRadius: '8px' }}>
-                    <label style={{...labelStyle, marginBottom: '1.5rem'}}>VINCULACIÓN CON EL CENTRO DE INSTRUCCIÓN <span style={{color:'red'}}>*</span></label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
-                        <input type="radio" name="vinculacion" value="ESTUDIANTE MATRICULADO (ACTIVO) O ADMITIDO" checked={formData.vinculacion === 'ESTUDIANTE MATRICULADO (ACTIVO) O ADMITIDO'} onChange={handleRadioChange} required style={{ transform: 'scale(1.2)' }} />
-                        ESTUDIANTE MATRICULADO (ACTIVO) O ADMITIDO
-                      </label>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
-                        <input type="radio" name="vinculacion" value="ESTUDIANTE RETIRADO (INACTIVO)" checked={formData.vinculacion === 'ESTUDIANTE RETIRADO (INACTIVO)'} onChange={handleRadioChange} style={{ transform: 'scale(1.2)' }} />
-                        ESTUDIANTE RETIRADO (INACTIVO)
-                      </label>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', cursor: 'pointer' }}>
-                        <input type="radio" name="vinculacion" value="EGRESADO" checked={formData.vinculacion === 'EGRESADO'} onChange={handleRadioChange} style={{ transform: 'scale(1.2)' }} />
-                        EGRESADO
-                      </label>
+
+                  <div>
+                    <label style={labelStyle}>VINCULACIÓN CON AIR TRAINING <span style={{ color: brandRed }}>*</span></label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                      {[
+                        { label: 'ESTUDIANTE MATRICULADO (ACTIVO) O ADMITIDO', value: 'ESTUDIANTE MATRICULADO (ACTIVO) O ADMITIDO' },
+                        { label: 'ESTUDIANTE RETIRADO (INACTIVO)', value: 'ESTUDIANTE RETIRADO (INACTIVO)' },
+                        { label: 'EGRESADO', value: 'EGRESADO' }
+                      ].map((item) => {
+                        const isSelected = formData.vinculacion === item.value;
+                        return (
+                          <div 
+                            key={item.value} 
+                            onClick={() => handleRadioChange(item.value)}
+                            style={{
+                              padding: '0.75rem 1.1rem',
+                              borderRadius: '10px',
+                              background: isSelected ? 'rgba(211, 18, 27, 0.08)' : cardBg,
+                              border: `1px solid ${isSelected ? brandRed : inputBorder}`,
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              transition: 'border-color 0.2s ease'
+                            }}
+                          >
+                            <input 
+                              type="radio" 
+                              name="vinculacion" 
+                              value={item.value} 
+                              checked={isSelected} 
+                              onChange={() => {}} 
+                              style={{ accentColor: brandRed }} 
+                            />
+                            <span style={{ fontSize: '0.82rem', fontWeight: isSelected ? 800 : 700, color: textColor }}>{item.label}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="input-group" style={{ border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.2)'}`, background: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#f9fafb', padding: '2rem', borderRadius: '8px' }}>
-                  <label style={labelStyle}>TIPO DE CERTIFICADO REQUERIDO <span style={{color:'red'}}>*</span></label>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '1.5rem', textTransform: 'uppercase' }}>En caso de solicitar más de un certificado por favor diligenciar el formulario por cada uno</p>
-                  
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-                    {certificadosOptions.map(option => (
-                      <label key={option} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem', cursor: 'pointer' }}>
+              {/* Bloque B: Tipo de Certificado (Espacios y Ajustes de Grilla) */}
+              <div style={{ background: inputBg, padding: '1.6rem 2rem', borderRadius: '14px', border: `1px solid ${inputBorder}` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.4rem' }}>
+                  <div style={{ width: '4px', height: '18px', background: brandRed, borderRadius: '2px' }} />
+                  <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 900, color: textColor }}>
+                    B. TIPO DE CERTIFICADO REQUERIDO <span style={{ color: brandRed }}>*</span>
+                  </h4>
+                </div>
+                
+                <p style={{ fontSize: '0.8rem', color: textMuted, marginBottom: '1.2rem', lineHeight: 1.5 }}>
+                  Selecciona el certificado o documento que requieres. (Si necesitas enviar solicitudes a correos distintos, diligencia un formulario por cada certificado).
+                </p>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '0.8rem' }}>
+                  {certificadosOptions.map(option => {
+                    const isSelected = formData.tiposCertificado.includes(option);
+                    return (
+                      <div
+                        key={option}
+                        onClick={() => handleCheckboxChange(option)}
+                        style={{
+                          padding: '0.75rem 1rem',
+                          borderRadius: '10px',
+                          background: isSelected ? 'rgba(211, 18, 27, 0.08)' : cardBg,
+                          border: `1px solid ${isSelected ? brandRed : inputBorder}`,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          transition: 'border-color 0.2s ease'
+                        }}
+                      >
                         <input 
                           type="checkbox" 
                           value={option} 
-                          checked={formData.tiposCertificado.includes(option)} 
-                          onChange={handleCheckboxChange} 
-                          style={{ transform: 'scale(1.2)' }} 
+                          checked={isSelected} 
+                          onChange={() => {}} 
+                          style={{ accentColor: brandRed }} 
                         />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
+                        <span style={{ fontSize: '0.82rem', fontWeight: isSelected ? 800 : 700, color: textColor }}>{option}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Bloque C: Especificación y Observaciones (Tamaños e Interlineado) */}
+              <div style={{ background: inputBg, padding: '1.6rem 2rem', borderRadius: '14px', border: `1px solid ${inputBorder}` }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.2rem' }}>
+                  <div style={{ width: '4px', height: '18px', background: brandRed, borderRadius: '2px' }} />
+                  <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 900, color: textColor }}>
+                    C. ESPECIFICACIÓN DE LA SOLICITUD Y COMPROBANTE
+                  </h4>
                 </div>
 
-                <div className="input-group">
-                  <label style={{...labelStyle, lineHeight: 1.4}}>ESPECIFIQUE SU SOLICITUD: (Ejemplo: programa TCP, Año Académico: 2023, año que requiere, costo mensual o anualidad, etc.) <span style={{color:'red'}}>*</span></label>
-                  <textarea name="especifiqueSolicitud" value={formData.especifiqueSolicitud} onChange={handleInputChange} required placeholder="Tu respuesta" rows={4} style={{...inputStyle, resize: 'vertical'}}></textarea>
-                </div>
-                
-                <div className="input-group">
-                  <label style={{...labelStyle, lineHeight: 1.4}}>SOLICITUD CERTIFICADO DE COSTOS EDUCATIVOS DIRIGIDO A: (POR FAVOR SOLO DILIGENCIAR ESTE ESPACIO SOLO SI SE SOLICITA PARA RETIRO CESANTÍAS) <span style={{color:'red'}}>*</span></label>
-                  <textarea name="costosEducativosDirigido" value={formData.costosEducativosDirigido} onChange={handleInputChange} placeholder="Tu respuesta" rows={4} style={{...inputStyle, resize: 'vertical'}}></textarea>
-                </div>
-
-                <div className="input-group">
-                  <label style={labelStyle}>OBSERVACIONES DE SU SOLICITUD <span style={{color:'red'}}>*</span></label>
-                  <textarea name="observaciones" value={formData.observaciones} onChange={handleInputChange} required placeholder="Tu respuesta" rows={3} style={{...inputStyle, resize: 'vertical'}}></textarea>
-                </div>
-
-                {error && (
-                  <div style={{ padding: '1rem', background: 'rgba(231, 26, 36, 0.1)', border: '1px solid var(--color-accent-red)', color: 'var(--color-accent-red)', borderRadius: '8px', fontSize: '0.95rem' }}>
-                    {error}
-                  </div>
-                )}
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '2rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--color-accent-blue)', fontSize: '0.9rem' }}>
-                    <RiInformationLine size={24} />
-                    <span>Al enviar el formulario, aceptas nuestra <a href="#" style={{ color: 'var(--color-accent-blue)', textDecoration: 'underline' }}>Política de Privacidad</a>.</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <div>
+                    <label style={labelStyle}>
+                      ESPECIFIQUE SU SOLICITUD <span style={{ color: brandRed }}>*</span>
+                    </label>
+                    <span style={{ display: 'block', fontSize: '0.78rem', color: textMuted, marginBottom: '0.5rem', lineHeight: 1.4 }}>
+                      Indica el programa académico (Ej. TCP / PPA / PCA), año cursado, intensidad horaria o si requiere desglose de costos.
+                    </span>
+                    <textarea 
+                      name="especifiqueSolicitud" 
+                      value={formData.especifiqueSolicitud} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="Escribe aquí los detalles específicos de tu solicitud..." 
+                      rows={3} 
+                      style={{ ...inputStyle, resize: 'vertical' }}
+                    ></textarea>
                   </div>
                   
-                  <button 
-                    type="submit" 
-                    disabled={submitting}
-                    style={{
-                      padding: '1rem 3rem',
-                      background: 'var(--color-accent-red)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      fontWeight: 800,
-                      cursor: submitting ? 'not-allowed' : 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      opacity: submitting ? 0.7 : 1,
-                      transition: 'background 0.3s'
-                    }}
-                  >
-                    {submitting ? (
-                      <><RiLoader4Line className="spin" size={20} /> PROCESANDO</>
-                    ) : (
-                      <><RiSendPlaneLine size={20} /> Enviar solicitud</>
-                    )}
-                  </button>
-                </div>
+                  <div>
+                    <label style={labelStyle}>SOLICITUD DE COSTOS EDUCATIVOS DIRIGIDO A:</label>
+                    <span style={{ display: 'block', fontSize: '0.78rem', color: textMuted, marginBottom: '0.5rem', lineHeight: 1.4 }}>
+                      (Solo si el certificado de costos es para retiro de cesantías o entidad financiera especifica el nombre)
+                    </span>
+                    <textarea 
+                      name="costosEducativosDirigido" 
+                      value={formData.costosEducativosDirigido} 
+                      onChange={handleInputChange} 
+                      placeholder="Escribe el nombre de la entidad de destino (opcional)..." 
+                      rows={2} 
+                      style={{ ...inputStyle, resize: 'vertical' }}
+                    ></textarea>
+                  </div>
 
-              </form>
-            )}
+                  <div>
+                    <label style={labelStyle}>OBSERVACIONES ADICIONALES Y COMPROBANTE <span style={{ color: brandRed }}>*</span></label>
+                    <span style={{ display: 'block', fontSize: '0.78rem', color: textMuted, marginBottom: '0.5rem', lineHeight: 1.4 }}>
+                      Indica la fecha de pago o número de comprobante de la transferencia realizada a la cuenta del Banco de Occidente.
+                    </span>
+                    <textarea 
+                      name="observaciones" 
+                      value={formData.observaciones} 
+                      onChange={handleInputChange} 
+                      required 
+                      placeholder="Ej: Pago realizado el día 28 de Julio con Nro. de comprobante 9841203..." 
+                      rows={3} 
+                      style={{ ...inputStyle, resize: 'vertical' }}
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              {error && (
+                <div style={{ padding: '1rem 1.2rem', background: 'rgba(211, 18, 27, 0.1)', border: `1px solid ${brandRed}`, color: brandRed, borderRadius: '12px', fontSize: '0.9rem', fontWeight: 800 }}>
+                  {error}
+                </div>
+              )}
+
+              {/* Barra Inferior Plano de Privacidad y Acción */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.8rem', borderTop: `1px solid ${cardBorder}`, paddingTop: '1.8rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: textColor, fontSize: '0.88rem', fontWeight: 600 }}>
+                  <RiShieldCheckLine size={24} style={{ color: brandRed }} />
+                  <span>Al enviar el formulario, aceptas nuestra <a href="#" style={{ color: textColor, textDecoration: 'underline', fontWeight: 800 }}>Política de Privacidad</a>.</span>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  disabled={submitting}
+                  style={{
+                    padding: '1rem 3rem',
+                    background: brandRed,
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontSize: '1rem',
+                    fontWeight: 900,
+                    cursor: submitting ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    opacity: submitting ? 0.7 : 1,
+                    transition: 'background 0.2s ease'
+                  }}
+                >
+                  {submitting ? (
+                    <><RiLoader4Line className="spin" size={22} /> PROCESANDO SOLICITUD...</>
+                  ) : (
+                    <><RiSendPlaneLine size={22} /> ENVIAR SOLICITUD DE CERTIFICADO</>
+                  )}
+                </button>
+              </div>
+
+            </form>
+          )}
+        </div>
+
+        {/* Paso 4: Tarjeta Informativa de Tiempos de Entrega */}
+        <div ref={step4Ref} style={{ ...cardStyle, background: isDark ? 'rgba(255, 255, 255, 0.03)' : '#f8fafc', border: `1px solid ${cardBorder}`, textAlign: 'center' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px', borderRadius: '14px', background: 'rgba(211, 18, 27, 0.1)', color: brandRed, marginBottom: '1rem' }}>
+            <RiTimeLine size={28} />
+          </div>
+          <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontWeight: 900, color: textColor }}>
+            PASO 4: TIEMPOS DE ENTREGA Y SEGUIMIENTO
+          </h3>
+          <p style={{ margin: '0 auto 1.8rem auto', maxWidth: '750px', fontSize: '0.9rem', color: textMuted, lineHeight: 1.6 }}>
+            Una vez enviado tu formulario con la información del pago verificada, el área de Coordinación Académica expedirá tu certificado oficial en los siguientes plazos:
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.2rem', textAlign: 'left' }}>
+            <div style={{ background: cardBg, padding: '1.2rem', borderRadius: '12px', border: `1px solid ${cardBorder}`, display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <RiCheckLine size={20} style={{ color: brandRed, flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ fontSize: '0.88rem', color: textColor, display: 'block', marginBottom: '2px' }}>Certificados Generales & Paz y Salvo</strong>
+                <span style={{ fontSize: '0.83rem', color: brandRed, fontWeight: 900 }}>De 2 a 4 días hábiles posteriores al pago.</span>
+              </div>
+            </div>
+
+            <div style={{ background: cardBg, padding: '1.2rem', borderRadius: '12px', border: `1px solid ${cardBorder}`, display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <RiCheckLine size={20} style={{ color: brandRed, flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <strong style={{ fontSize: '0.88rem', color: textColor, display: 'block', marginBottom: '2px' }}>Certificados de Notas & Especiales</strong>
+                <span style={{ fontSize: '0.83rem', color: brandRed, fontWeight: 900 }}>De 4 a 5 días hábiles posteriores al pago.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: '1.8rem', paddingTop: '1rem', borderTop: `1px solid ${cardBorder}`, fontSize: '0.83rem', color: textMuted }}>
+            ¿Necesitas consultar el estado de tu trámite? Escribe a <strong style={{ color: textColor }}>coordinacionacademica@airtrainingacademia.com</strong>
           </div>
         </div>
-      </section>
+
+      </div>
     </div>
   );
 };
