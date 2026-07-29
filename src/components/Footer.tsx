@@ -33,7 +33,9 @@ export const Footer: React.FC = () => {
       <div className="footer-bg" style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: 'url(/footer/FooterPiedepagina.jpg)',
+        backgroundImage: 'url(/footer/FooterPiedepaginaClean.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         zIndex: 0
       }} />
@@ -63,13 +65,44 @@ export const Footer: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start', maxWidth: '420px' }}>
             {/* Logo y Divisor */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
-              <a href="#" className="footer-logo-link" style={{ textDecoration: 'none', marginBottom: '1.8rem', display: 'block', width: '100%', textAlign: 'center' }}>
+              <a 
+                href="#" 
+                className="footer-logo-link" 
+                style={{ 
+                  textDecoration: 'none', 
+                  marginBottom: '1.5rem', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  gap: '14px', 
+                  width: '100%' 
+                }}
+              >
                 <img
                   src="/icon_white.png"
                   alt="Air Training Industry"
-                  style={{ width: '280px', height: 'auto', objectFit: 'contain', marginBottom: '10px' }}
+                  style={{ 
+                    width: '100%', 
+                    maxWidth: 'clamp(200px, 75vw, 270px)', 
+                    height: 'auto', 
+                    objectFit: 'contain', 
+                    display: 'block' 
+                  }}
                 />
-                <img loading="lazy" src="/footer/AboveThBest.png" alt="Above the best" style={{ height: '35px', objectFit: 'contain', alignSelf: 'center', margin: '0 auto' }} />
+                <img 
+                  loading="lazy" 
+                  src="/footer/AboveThBest.png" 
+                  alt="Above the best" 
+                  style={{ 
+                    width: '100%', 
+                    maxWidth: 'clamp(170px, 65vw, 230px)', 
+                    height: 'auto', 
+                    maxHeight: '32px', 
+                    objectFit: 'contain', 
+                    display: 'block' 
+                  }} 
+                />
               </a>
 
               <div style={{
@@ -201,10 +234,10 @@ export const Footer: React.FC = () => {
             </h4>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-              <FooterInfoItem icon={<RiFlightTakeoffLine size={20} />} label="Tripulante de Cabina (TCP)" />
-              <FooterInfoItem icon={<RiPlaneLine size={20} style={{ transform: 'rotate(45deg)' }} />} label="Piloto Privado (PPA)" />
-              <FooterInfoItem icon={<RiPlaneLine size={20} />} label="Piloto Comercial (PCA)" />
-              <FooterInfoItem icon={<RiRadarLine size={20} />} label="Despachador de Aeronaves (DPA)" />
+              <FooterInfoItem icon={<RiFlightTakeoffLine size={20} />} label="Tripulante de Cabina (TCP)" href="#admision-tcp" />
+              <FooterInfoItem icon={<RiPlaneLine size={20} style={{ transform: 'rotate(45deg)' }} />} label="Piloto Privado (PPA)" href="#admision-ppa" />
+              <FooterInfoItem icon={<RiPlaneLine size={20} />} label="Piloto Comercial (PCA)" href="#admision-pca" />
+              <FooterInfoItem icon={<RiRadarLine size={20} />} label="Despachador de Aeronaves (DPA)" href="#admision-dpa" />
             </div>
           </div>
 

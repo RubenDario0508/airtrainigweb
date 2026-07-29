@@ -408,7 +408,7 @@ export const PracticasLaboralesPage: React.FC = () => {
 
       {/* CTA FOOTER */}
       <div style={{ backgroundColor: 'var(--color-bg-secondary)', borderTop: '1px solid var(--color-bg-tertiary)', padding: '4rem 1.5rem' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', background: 'var(--color-blue-gradient)', borderRadius: '12px', padding: '3rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem', boxShadow: '0 8px 32px var(--glass-shadow)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', background: '#0432ad', borderRadius: '12px', padding: '3rem', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem', boxShadow: '0 8px 32px var(--glass-shadow)' }}>
           <div style={{ flex: '1 1 min(100%, 400px)', color: '#fff' }}>
             <h3 style={{ fontSize: '1.8rem', fontWeight: 800, margin: '0 0 1rem' }}>¿Deseas ser un Aliado Estratégico?</h3>
             <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.5, opacity: 0.9 }}>

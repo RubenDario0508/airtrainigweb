@@ -481,8 +481,21 @@ export const MorPage: React.FC = () => {
             Enviar Reporte MOR
           </button>
           
-          <p style={{ display: 'block', textAlign: 'center', width: '100%', color: '#ccc', fontSize: '0.8rem', marginTop: '1.5rem', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-            El reporte será enviado a: <span style={{ color: '#fff', fontWeight: 800 }}>sms.airtraining@gmail.com</span>
+          <p style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            flexWrap: 'wrap', 
+            gap: '6px', 
+            textAlign: 'center', 
+            width: '100%', 
+            margin: '1.5rem auto 0 auto', 
+            color: 'rgba(255, 255, 255, 0.85)', 
+            fontSize: '0.85rem', 
+            textShadow: '0 2px 4px rgba(0,0,0,0.8)' 
+          }}>
+            <span>El reporte será enviado a:</span>
+            <span style={{ color: '#ffffff', fontWeight: 800 }}>sms.airtraining@gmail.com</span>
           </p>
         </form>
       </div>

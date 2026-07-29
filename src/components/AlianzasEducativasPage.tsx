@@ -180,7 +180,7 @@ export const AlianzasEducativasPage: React.FC = () => {
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'cover',
-                objectPosition: 'center', 
+                objectPosition: 'center top', 
                 zIndex: 1 
               }}
               onError={(e) => {
@@ -220,8 +220,8 @@ export const AlianzasEducativasPage: React.FC = () => {
               {/* Columna 1 */}
               <div>
                 <div style={{ marginBottom: '3rem' }}>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    MODULE <span style={{ fontSize: '2.5rem', lineHeight: 1, fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px #fff' }}>1</span>
+                  <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', marginBottom: '1rem', letterSpacing: '1px' }}>
+                    MODULE 1
                   </h4>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff' }}>
                     <ListItem>Pronunciation, grammar, vocabulary.</ListItem>
@@ -233,8 +233,8 @@ export const AlianzasEducativasPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    MODULE <span style={{ fontSize: '2.5rem', lineHeight: 1, fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px #fff' }}>2</span>
+                  <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', marginBottom: '0.5rem', letterSpacing: '1px' }}>
+                    MODULE 2
                   </h4>
                   <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#fff' }}>Fluency, comprehension:</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff' }}>
@@ -251,8 +251,8 @@ export const AlianzasEducativasPage: React.FC = () => {
               {/* Columna 2 */}
               <div>
                 <div style={{ marginBottom: '3rem' }}>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    MODULE <span style={{ fontSize: '2.5rem', lineHeight: 1, fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px #fff' }}>3</span>
+                  <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', marginBottom: '1rem', letterSpacing: '1px' }}>
+                    MODULE 3
                   </h4>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff' }}>
                     <ListItem>Interactions.</ListItem>
@@ -410,10 +410,12 @@ export const AlianzasEducativasPage: React.FC = () => {
                 
                 {/* Módulo 1 */}
                 <div>
-                  <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', marginBottom: '1.5rem', textTransform: 'uppercase', display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                    MODULE <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1 }}>1</span>
-                    <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1, color: 'transparent', WebkitTextStroke: '1.5px #fff', marginLeft: '2px' }}>— 30hrs</span>
+                  <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', margin: '0 0 0.2rem 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    MODULE 1
                   </h4>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '1rem', letterSpacing: '0.5px' }}>
+                    30 HRS
+                  </div>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                     <ListItem>Aerodynamics & Systems.</ListItem>
                     <ListItem>Airport and Hangar.</ListItem>
@@ -427,10 +429,12 @@ export const AlianzasEducativasPage: React.FC = () => {
 
                 {/* Módulo 2 */}
                 <div>
-                  <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', marginBottom: '1.5rem', textTransform: 'uppercase', display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                    MODULE <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1 }}>2</span>
-                    <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1, color: 'transparent', WebkitTextStroke: '1.5px #fff', marginLeft: '2px' }}>— 30hrs</span>
+                  <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', margin: '0 0 0.2rem 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    MODULE 2
                   </h4>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '0.6rem', letterSpacing: '0.5px' }}>
+                    30 HRS
+                  </div>
                   <p style={{ margin: '0 0 0.6rem 0', fontSize: '0.9rem', fontWeight: 800, color: '#fff' }}>Fluency, Comprehension</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                     <ListItem>Weather conditions.</ListItem>
@@ -466,10 +470,12 @@ export const AlianzasEducativasPage: React.FC = () => {
               
               {/* Módulo 3 */}
               <div style={{ marginBottom: '3rem' }}>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', marginBottom: '1.5rem', textTransform: 'uppercase', display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '6px' }}>
-                  MODULE <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1 }}>3</span>
-                  <span style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1, color: 'transparent', WebkitTextStroke: '1.5px #fff', marginLeft: '2px' }}>— 40hrs</span>
+                <h4 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', margin: '0 0 0.2rem 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  MODULE 3
                 </h4>
+                <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '0.6rem', letterSpacing: '0.5px' }}>
+                  40 HRS
+                </div>
                 <p style={{ margin: '0 0 0.6rem 0', fontSize: '0.9rem', fontWeight: 800, color: '#fff' }}>Interview Preparation.</p>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                   <ListItem>TEA/ELPAC breakdown.</ListItem>
