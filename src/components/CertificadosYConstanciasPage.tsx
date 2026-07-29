@@ -406,14 +406,25 @@ export const CertificadosYConstanciasPage: React.FC<CertificadosYConstanciasPage
         {/* Paso 3: Formulario Digital de Solicitud (Responsive Perfecto) */}
         <div ref={step3Ref} style={cardStyle}>
           
-          {/* Header del Formulario (Sin la caja roja con 3) */}
-          <div style={{ marginBottom: '1.8rem', borderBottom: `2px solid ${cardBorder}`, paddingBottom: '1rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.1rem, 4vw, 1.35rem)', fontWeight: 900, margin: 0, color: textColor }}>
-              PASO 3: FORMULARIO DIGITAL DE SOLICITUD
-            </h2>
-            <p style={{ margin: '6px 0 0 0', fontSize: '0.84rem', color: textMuted, lineHeight: 1.5 }}>
-              Ingresa tus datos personales, marca los certificados solicitados e incluye la información del comprobante.
-            </p>
+          {/* Header del Formulario (Con Ícono a Juego con los demás Pasos) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem', borderBottom: `1px solid ${cardBorder}`, paddingBottom: '0.7rem' }}>
+            <div style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
+              background: 'rgba(211, 18, 27, 0.1)',
+              color: brandRed,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <RiArticleLine size={20} />
+            </div>
+            <div>
+              <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 900, color: textColor }}>PASO 3: FORMULARIO DIGITAL DE SOLICITUD</h3>
+              <span style={{ fontSize: '0.75rem', color: textMuted }}>Ingresa tus datos personales, marca los certificados solicitados e incluye la información del comprobante</span>
+            </div>
           </div>
 
           {submitSuccess ? (
