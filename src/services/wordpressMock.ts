@@ -215,7 +215,7 @@ class WordPressService {
   async getVacantes(): Promise<any[]> {
     if (this.useRealApi) {
       try {
-        const response = await fetch(`${this.apiUrl}/wp-json/wp/v2/posts?categories=vacantes&_embed`);
+        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=vacantes&_embed`);
         if (response.ok) {
           const data = await response.json();
           // Hacemos el mapeo si hay data
@@ -239,7 +239,7 @@ class WordPressService {
   async getBiblioteca(): Promise<any[]> {
     if (this.useRealApi) {
       try {
-        const response = await fetch(`${this.apiUrl}/wp-json/wp/v2/posts?categories=biblioteca&_embed`);
+        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=biblioteca&_embed`);
         if (response.ok) {
           const data = await response.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -282,7 +282,7 @@ class WordPressService {
         // Debes instalar Contact Form 7 en WordPress, crear un formulario con estos campos, 
         // y reemplazar el ID '123' de abajo por el ID real de tu formulario.
         const CF7_FORM_ID = '123'; 
-        const response = await fetch(`${this.apiUrl}/wp-json/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
+        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
           method: 'POST',
           body: new URLSearchParams({
             'your-name': data.nombre,
@@ -318,7 +318,7 @@ class WordPressService {
         // Reemplaza '456' con el ID del formulario de Contact Form 7 para "Trabaja con Nosotros".
         // Este formulario debe aceptar archivos.
         const CF7_FORM_ID = '456'; 
-        const response = await fetch(`${this.apiUrl}/wp-json/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
+        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
           method: 'POST',
           body: formData // Ya es FormData nativo con el archivo adjunto
         });
