@@ -215,17 +215,25 @@ class WordPressService {
   async getVacantes(): Promise<any[]> {
     if (this.useRealApi) {
       try {
-        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=vacantes&_embed`);
-        if (response.ok) {
-          const data = await response.json();
-          // Hacemos el mapeo si hay data
-          if (Array.isArray(data) && data.length > 0) {
-            return data.map((post: any) => ({
-              id: post.id,
-              title: post.title?.rendered || "",
-              imageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "",
-              content: post.content?.rendered || "",
-            }));
+        // 1. Fetch category ID by slug
+        const catRes = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/categories&slug=vacantes`);
+        if (catRes.ok) {
+          const cats = await catRes.json();
+          if (cats && cats.length > 0) {
+            const catId = cats[0].id;
+            // 2. Fetch posts by category ID
+            const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=${catId}&_embed`);
+            if (response.ok) {
+              const data = await response.json();
+              if (Array.isArray(data) && data.length > 0) {
+                return data.map((post: any) => ({
+                  id: post.id,
+                  title: post.title?.rendered || "",
+                  imageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "",
+                  content: post.content?.rendered || "",
+                }));
+              }
+            }
           }
         }
       } catch (e) {
@@ -239,31 +247,41 @@ class WordPressService {
   async getBiblioteca(): Promise<any[]> {
     if (this.useRealApi) {
       try {
-        const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=biblioteca&_embed`);
-        if (response.ok) {
-          const data = await response.json();
-          if (Array.isArray(data) && data.length > 0) {
-            return data.map((post: any) => {
-              // Extract the first href link from content if it exists
-              const content = post.content?.rendered || "";
-              const match = content.match(/href="([^"]+)"/);
-              const downloadUrl = match ? match[1] : "";
+        // 1. Fetch category ID by slug
+        const catRes = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/categories&slug=biblioteca`);
+        if (catRes.ok) {
+          const cats = await catRes.json();
+          if (cats && cats.length > 0) {
+            const catId = cats[0].id;
+            // 2. Fetch posts by category ID
+            const response = await fetch(`${this.apiUrl}/index.php?rest_route=/wp/v2/posts&categories=${catId}&_embed`);
+            if (response.ok) {
+              const data = await response.json();
+              if (Array.isArray(data) && data.length > 0) {
+                return data.map((post: any) => {
+                  // Extract the first href link from content if it exists
+                  const content = post.content?.rendered || "";
+                  const match = content.match(/href="([^"]+)"/);
+                  const downloadUrl = match ? match[1] : "";
 
-              return {
-                id: post.id,
-                title: post.title?.rendered || "",
-                desc: (post.excerpt?.rendered || "").replace(/<[^>]*>/g, '').slice(0, 100),
-                type: 'Manuales', // Fallback
-                downloadUrl
-              };
-            });
+                  return {
+                    id: post.id,
+                    title: post.title?.rendered || "",
+                    desc: post.excerpt?.rendered?.replace(/<[^>]+>/g, '') || "", // Strip HTML
+                    type: 'Manuales', // Fallback type
+                    downloadUrl: downloadUrl,
+                    date: new Date(post.date).toLocaleDateString()
+                  };
+                });
+              }
+            }
           }
         }
       } catch (e) {
         console.error("Error obteniendo biblioteca de WP", e);
       }
     }
-    return [];
+    return []; 
   }
 
   // Obtener Sedes (WordPress Custom Post Type o Páginas)
