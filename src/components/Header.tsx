@@ -64,10 +64,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment, theme, toggleT
       { name: 'PQRS', href: '#pqrs', pageId: 'pqrs' }
     ] }
   ];
-  const headerBgScrolled = theme === 'dark' ? 'rgba(7, 12, 23, 0.65)' : 'rgba(255, 255, 255, 0.85)';
-  const headerBgTop = theme === 'dark' ? 'rgba(7, 12, 23, 0.2)' : 'rgba(255, 255, 255, 0.25)';
+  const headerBgScrolled = theme === 'dark' ? 'rgba(7, 12, 23, 0.90)' : 'rgba(255, 255, 255, 0.95)';
+  const headerBgTop = theme === 'dark' ? 'rgba(7, 12, 23, 0.80)' : 'rgba(255, 255, 255, 0.90)';
   const textColor = theme === 'dark' ? '#ffffff' : '#1a1a1a';
-  const borderColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)';
+  const borderColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
 
   return (
     <header
@@ -80,10 +80,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment, theme, toggleT
         zIndex: 50,
         transition: 'all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)',
         backgroundColor: (isScrolled || currentPage !== 'home') ? headerBgScrolled : headerBgTop,
-        backdropFilter: (isScrolled || currentPage !== 'home') ? 'blur(12px)' : 'blur(4px)',
-        WebkitBackdropFilter: (isScrolled || currentPage !== 'home') ? 'blur(12px)' : 'blur(4px)',
-        borderBottom: `1px solid ${(isScrolled || currentPage !== 'home') ? borderColor : 'transparent'}`,
-        boxShadow: (isScrolled || currentPage !== 'home') ? '0 2px 10px rgba(0, 0, 0, 0.05)' : 'none',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: `1px solid ${(isScrolled || currentPage !== 'home') ? borderColor : (theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)')}`,
+        boxShadow: (isScrolled || currentPage !== 'home') ? '0 4px 15px rgba(0, 0, 0, 0.06)' : '0 2px 10px rgba(0, 0, 0, 0.03)',
         padding: (isScrolled || currentPage !== 'home') ? '0.4rem 0' : '0.8rem 0',
         color: textColor,
       }}

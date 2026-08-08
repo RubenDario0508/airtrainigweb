@@ -40,7 +40,7 @@
   /* Cromaticidad de Cabina */
   --color-blue-deep: #0033aa;
   --color-blue-gradient: linear-gradient(135deg, #002288 0%, #0044cc 100%);
-  --color-accent-blue: #00d2ff;        /* Azul plano aeronáutico de alta visibilidad */
+  --color-accent-blue: #4a90d9;        /* Azul compacto de alta visibilidad para modo día */
   --color-accent-blue-glow: transparent;
   --color-accent-red: #e60000;         /* Botón "Inscríbete" y marcas oficiales */
   --color-accent-red-hover: #cc0000;

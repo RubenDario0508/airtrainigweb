@@ -386,7 +386,7 @@ export const ThreeDParallax: React.FC<ThreeDParallaxProps> = ({ onOpenEnrollment
               maxWidth: '850px',
               letterSpacing: '-1.5px'
             }}>
-              Tu carrera hacia las nubes comienza aquí
+              Tu carrera<br />hacia las nubes<br />comienza ahora
             </h1>
             <p style={{
               color: 'rgba(255,255,255,0.85)',
@@ -422,20 +422,20 @@ export const ThreeDParallax: React.FC<ThreeDParallaxProps> = ({ onOpenEnrollment
           <div style={{ position: 'absolute', inset: 0, zIndex: 20, background: '#02050c', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', width: '100%', maxWidth: 420, padding: '0 2rem' }}>
               <div style={{ position: 'relative', width: 80, height: 80 }}>
-                <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#4a90d9', animation: 'spin 1.5s linear infinite' }} />
-                <RiCompassLine size={30} color="#4a90d9" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
+                <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#00d2ff', animation: 'spin 1.5s linear infinite' }} />
+                <RiCompassLine size={30} color="var(--color-accent-blue)" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#4a90d9', fontSize: '0.9rem', fontWeight: 700 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent-blue)', fontSize: '0.9rem', fontWeight: 700 }}>
                 {loadPct < 100 ? 'CACHING 3D ASSETS...' : 'READY FOR FLIGHT'}
               </div>
 
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>
-                  <span>BUFFER</span><span style={{ color: loadPct === 100 ? '#2ecc71' : '#4a90d9' }}>{loadPct}%</span>
+                  <span>BUFFER</span><span style={{ color: loadPct === 100 ? '#2ecc71' : 'var(--color-accent-blue)' }}>{loadPct}%</span>
                 </div>
                 <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
-                  <div style={{ width: `${loadPct}%`, height: '100%', background: 'linear-gradient(90deg, #4a90d9, #2ecc71)' }} />
+                  <div style={{ width: `${loadPct}%`, height: '100%', background: 'linear-gradient(90deg, #00d2ff, #2ecc71)' }} />
                 </div>
               </div>
             </div>

@@ -189,19 +189,19 @@ export const PqrsPage: React.FC<PqrsPageProps> = () => {
         <div className="trabaja-container">
           {/* Left Column info */}
           <div className="trabaja-info">
-            <h2>Garantía de Mejora Continua</h2>
-            <p>
+            <h2 style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>Garantía de Mejora Continua</h2>
+            <p style={{ color: 'rgba(255, 255, 255, 0.92)', fontSize: '1.05rem', lineHeight: 1.7, fontWeight: 400 }}>
               Tus aportes nos ayudan a optimizar el entorno de aprendizaje, nuestros simuladores de vuelo y la atención en nuestras sedes. Por favor, suministra información veraz para poder realizar una investigación formal y darte una respuesta oportuna.
             </p>
 
             <div className="trabaja-contact-list">
               <div className="trabaja-contact-item">
                 <div className="trabaja-contact-icon">
-                  <RiInformationLine size={24} style={{ color: '#fff' }} />
+                  <RiInformationLine size={24} style={{ color: 'var(--color-accent-red)' }} />
                 </div>
                 <div className="trabaja-contact-text">
-                  <h4>Normativa de Calidad</h4>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', fontWeight: 400, lineHeight: 1.5 }}>
+                  <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase' }}>NORMATIVA DE CALIDAD</h4>
+                  <p style={{ color: 'rgba(255, 255, 255, 0.92)', fontSize: '0.95rem', fontWeight: 400, lineHeight: 1.6 }}>
                     Todas las solicitudes son revisadas por el área de Calidad bajo el marco regulatorio del Ministerio de Educación y la Aeronáutica Civil de Colombia.
                   </p>
                 </div>
@@ -209,11 +209,11 @@ export const PqrsPage: React.FC<PqrsPageProps> = () => {
 
               <div className="trabaja-contact-item">
                 <div className="trabaja-contact-icon">
-                  <RiMailLine size={24} style={{ color: '#fff' }} />
+                  <RiMailLine size={24} style={{ color: 'var(--color-accent-red)' }} />
                 </div>
                 <div className="trabaja-contact-text">
-                  <h4>Canal Alternativo</h4>
-                  <a href="mailto:calidad@airtraining.com.co" style={{ color: '#ffffff', transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                  <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase' }}>CANAL ALTERNATIVO</h4>
+                  <a href="mailto:calidad@airtraining.com.co" style={{ color: '#ffffff', fontWeight: 700, transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
                     calidad@airtraining.com.co
                   </a>
                 </div>

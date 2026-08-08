@@ -208,7 +208,7 @@ export const Footer: React.FC = () => {
                 </div>
               </a>
               <a href="mailto:info@airtraining.com.co" className="footer-contact-pill email-pill" style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'transparent', border: '1px solid transparent', padding: '0.6rem 0.8rem', marginLeft: '-0.8rem', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s ease' }}>
-                <RiMailLine size={26} style={{ color: '#00d2ff' }} />
+                <RiMailLine size={26} style={{ color: 'var(--color-accent-blue)' }} />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)', fontWeight: 600, letterSpacing: '0.5px' }}>Línea anticorrupción</span>
                   <span style={{ fontSize: '0.9rem', color: '#fff', fontWeight: 800 }}>info@airtraining.com.co</span>
@@ -229,7 +229,7 @@ export const Footer: React.FC = () => {
               alignItems: 'center',
               gap: '10px',
             }}>
-              <div style={{ width: '3px', height: '16px', background: '#00d2ff' }} />
+              <div style={{ width: '3px', height: '16px', background: 'var(--color-accent-blue)' }} />
               ADMISIONES
             </h4>
 
@@ -253,19 +253,19 @@ export const Footer: React.FC = () => {
               alignItems: 'center',
               gap: '10px',
             }}>
-              <div style={{ width: '3px', height: '16px', background: '#00d2ff' }} />
+              <div style={{ width: '3px', height: '16px', background: 'var(--color-accent-blue)' }} />
               VISÍTANOS
             </h4>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
               <a href="https://maps.app.goo.gl/SiHT1cDnNTfQfUpt7" target="_blank" rel="noopener noreferrer" className="footer-sede-card-clean" style={{ display: 'flex', flexDirection: 'column', gap: '4px', background: 'transparent', border: '1px solid transparent', padding: '0.6rem 0.8rem', marginLeft: '-0.8rem', borderRadius: '8px', transition: 'all 0.3s ease', textDecoration: 'none' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#00d2ff', fontSize: '0.85rem', fontWeight: 800 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent-blue)', fontSize: '0.85rem', fontWeight: 800 }}>
                   <RiMapPinLine size={18} /> Sede Chía <RiExternalLinkLine size={12} style={{ marginLeft: 'auto', opacity: 0.7 }} />
                 </div>
                 <span style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.5, paddingLeft: '26px' }}>Cra. 6 # 01a-47, Barrio Los Cedros</span>
               </a>
               <a href="https://maps.app.goo.gl/BD7v5jR4npZhStkw7" target="_blank" rel="noopener noreferrer" className="footer-sede-card-clean" style={{ display: 'flex', flexDirection: 'column', gap: '4px', background: 'transparent', border: '1px solid transparent', padding: '0.6rem 0.8rem', marginLeft: '-0.8rem', borderRadius: '8px', transition: 'all 0.3s ease', textDecoration: 'none' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#00d2ff', fontSize: '0.85rem', fontWeight: 800 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent-blue)', fontSize: '0.85rem', fontWeight: 800 }}>
                   <RiMapPinLine size={18} /> Sede Ibagué <RiExternalLinkLine size={12} style={{ marginLeft: 'auto', opacity: 0.7 }} />
                 </div>
                 <span style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.5, paddingLeft: '26px' }}>Aeropuerto Perales, Locales 104 y 105</span>
@@ -357,7 +357,7 @@ const FooterInfoItem: React.FC<FooterInfoItemProps> = ({ icon, label, value, hre
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#00d2ff',
+        color: 'var(--color-accent-blue)',
         flexShrink: 0,
         marginTop: '2px',
         marginRight: '5px'

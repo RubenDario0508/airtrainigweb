@@ -117,25 +117,28 @@ export const Vision: React.FC = () => {
         
         <style>{`
           .vision-card {
-            background: #001287;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(6, 24, 96, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 28px;
             padding: 3rem 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 45px rgba(0, 8, 50, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
           }
           .vision-card:hover {
             transform: translateY(-6px);
-            background: #000c66;
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 35px 60px rgba(0, 12, 102, 0.3), 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(8, 30, 115, 0.85);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 15, 90, 0.45), 0 15px 30px rgba(0, 0, 0, 0.3);
           }
           .vision-card-icon {
-            width: 72px;
-            height: 72px;
+            width: 68px;
+            height: 68px;
             object-fit: contain;
+            flex-shrink: 0;
           }
           .vision-grid {
             display: grid;
@@ -184,9 +187,9 @@ export const Vision: React.FC = () => {
         <div className="vision-grid">
           {/* Card 1: Misión */}
           <div className="vision-card stagger-item">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem' }}>
               <img loading="lazy" src="/iconhero/Mision.png" alt="Misión Icon" className="vision-card-icon" />
-              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', marginLeft: '1.2rem', margin: 0 }}>Misión</h3>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>Misión</h3>
             </div>
             <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
               Contribuir a la seguridad y operaciones aéreas del país mediante entrenamiento especializado de alta calidad y excelencia académica.
@@ -195,9 +198,9 @@ export const Vision: React.FC = () => {
 
           {/* Card 2: Visión */}
           <div className="vision-card stagger-item">
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem' }}>
               <img loading="lazy" src="/iconhero/Vision.png" alt="Visión Icon" className="vision-card-icon" />
-              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', marginLeft: '1.2rem', margin: 0 }}>Visión</h3>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>Visión</h3>
             </div>
             <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
               Ser una escuela de aviación sostenible, líder en entrenamiento aeronáutico y desarrollo tecnológico, innovando procesos con personal altamente calificado y certificado.
@@ -241,7 +244,7 @@ export const Vision: React.FC = () => {
 
           {/* Stat 3 */}
           <div className="glass-panel stagger-item stat-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-            <div style={{ color: '#4a90d9', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ color: 'var(--color-accent-blue)', marginBottom: '0.8rem', display: 'flex', justifyContent: 'center' }}>
               <RiCompassLine size={36} />
             </div>
             <div style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--color-text-primary)', lineHeight: 1, marginBottom: '0.5rem', transition: 'color 0.4s ease' }}>

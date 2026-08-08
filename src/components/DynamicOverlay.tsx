@@ -115,7 +115,20 @@ export const DynamicOverlay: React.FC<DynamicOverlayProps> = ({ onOpenEnrollment
                 letterSpacing: '-1.5px',
                 margin: 0
             }}>
-              Tu carrera hacia
+              Tu carrera
+            </h1>
+          </div>
+          <div style={{ overflow: 'hidden', padding: '0.2em 0' }}>
+            <h1 className="hero-title reveal-line" style={{ 
+                color: '#ffffff', 
+                fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
+                fontWeight: 900, 
+                lineHeight: 1.1,
+                textShadow: '0 4px 20px rgba(0,0,0,0.8)',
+                letterSpacing: '-1.5px',
+                margin: 0
+            }}>
+              hacia las nubes
             </h1>
           </div>
           <div style={{ overflow: 'hidden', padding: '0.2em 0', marginBottom: '0.5rem' }}>
@@ -128,7 +141,7 @@ export const DynamicOverlay: React.FC<DynamicOverlayProps> = ({ onOpenEnrollment
                 letterSpacing: '-1.5px',
                 margin: 0
             }}>
-              las nubes comienza aquí
+              comienza ahora
             </h1>
           </div>
           

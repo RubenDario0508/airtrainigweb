@@ -7,31 +7,30 @@ const WhatsAppIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill=
 
 const ContactBar = () => (
   <div style={{ backgroundColor: 'var(--color-bg-secondary)', padding: '4rem 1.5rem', borderBottom: '1px solid var(--color-bg-tertiary)' }}>
-    <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+    <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'flex-start' }}>
       
       {/* Left Side */}
       <div>
-        <h3 style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 0.5rem', display: 'flex', gap: '8px' }}>
+        <h3 style={{ fontSize: '2rem', fontWeight: 900, margin: '0 0 0.5rem', display: 'flex', gap: '8px' }}>
           <span style={{ color: 'var(--color-text-primary)' }}>Ready</span> 
-          <span style={{ color: 'var(--color-text-secondary)' }}>to start</span> 
-          <span style={{ color: '#d3121b' }}>?</span>
+          <span style={{ color: 'var(--color-text-secondary)' }}>to start</span><span style={{ color: '#d3121b' }}>?</span>
         </h3>
-        <p style={{ fontSize: '0.9rem', fontWeight: 800, margin: '0 0 1.5rem', textTransform: 'uppercase', color: 'var(--color-text-primary)' }}>Enrollment</p>
+        <p style={{ fontSize: '0.9rem', fontWeight: 900, margin: '0 0 1.5rem', textTransform: 'uppercase', color: 'var(--color-text-primary)', letterSpacing: '1px' }}>ENROLLMENT</p>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: 'bold', color: 'var(--color-text-primary)' }}>01.</span> Fill in the online form.</li>
-          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: 'bold', color: 'var(--color-text-primary)' }}>02.</span> Book your interview to show your english level.</li>
-          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: 'bold', color: 'var(--color-text-primary)' }}>03.</span> Ask for a payment information.</li>
+          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: '900', color: 'var(--color-text-primary)' }}>01.</span> Fill in the online form.</li>
+          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: '900', color: 'var(--color-text-primary)' }}>02.</span> Book your interview to show your english level.</li>
+          <li style={{ display: 'flex', gap: '10px' }}><span style={{ fontWeight: '900', color: 'var(--color-text-primary)' }}>03.</span> Ask for payment information.</li>
         </ul>
       </div>
 
       {/* Right Side */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <h3 style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 1.5rem', display: 'flex', gap: '8px' }}>
+        <h3 style={{ fontSize: '2rem', fontWeight: 900, margin: '0 0 0.5rem', display: 'flex', gap: '8px' }}>
           <span style={{ color: 'var(--color-text-primary)' }}>More</span> 
-          <span style={{ color: 'var(--color-text-secondary)' }}>info</span> 
-          <span style={{ color: '#d3121b' }}>!</span>
+          <span style={{ color: 'var(--color-text-secondary)' }}>info</span><span style={{ color: '#d3121b' }}>!</span>
         </h3>
-        <a href="https://wa.me/573214002431" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: '#d3121b', color: '#fff', padding: '1rem 2rem', borderRadius: '50px', fontWeight: 800, textDecoration: 'none', fontSize: '1.4rem', boxShadow: '0 4px 15px rgba(211, 18, 27, 0.4)', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+        <p style={{ fontSize: '0.9rem', fontWeight: 900, margin: '0 0 1.5rem', textTransform: 'uppercase', color: 'var(--color-text-primary)', letterSpacing: '1px' }}>CONTACT US</p>
+        <a href="https://wa.me/573214002431" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', backgroundColor: '#d3121b', color: '#fff', padding: '1rem 2rem', borderRadius: '50px', fontWeight: 900, textDecoration: 'none', fontSize: '1.4rem', boxShadow: '0 4px 15px rgba(211, 18, 27, 0.4)', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
           <WhatsAppIcon />
           321 400 2431
         </a>
@@ -99,14 +98,14 @@ export const AlianzasEducativasPage: React.FC = () => {
           width: '100%',
           boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
           display: 'flex',
-          flexWrap: 'wrap-reverse', // En móviles la imagen queda arriba, texto abajo
-          minHeight: '850px',
-          overflow: 'visible'
+          flexWrap: 'wrap-reverse',
+          minHeight: '715px',
+          overflow: 'hidden'
         }}>
           
-          {/* LADO IZQUIERDO: Contenido y Textos (50%) */}
+          {/* LADO IZQUIERDO: Contenido y Textos - stretches to fill */}
           <div style={{ 
-            flex: '1 1 min(100%, 500px)',
+            flex: '1.75 1 min(100%, 400px)',
             position: 'relative', 
             zIndex: 3, 
             display: 'flex', 
@@ -165,14 +164,16 @@ export const AlianzasEducativasPage: React.FC = () => {
 
           </div>
 
-          {/* LADO DERECHO: Imagen Vertical (50%) */}
+          {/* LADO DERECHO: Imagen - capped width for portrait image */}
           <div style={{
-            flex: '1 1 min(100%, 500px)',
+            flex: '0.75 1 min(100%, 400px)',
             position: 'relative',
-            minHeight: '600px'
+            minHeight: '715px',
+            backgroundColor: '#0a0f1a',
+            overflow: 'hidden'
           }}>
             <img loading="lazy" 
-              src="/imgpag7/imagentcp.webp" 
+              src="/imgpag7/imagentcp_tight.webp" 
               alt="Cabin Crew" 
               style={{ 
                 position: 'absolute', 
@@ -185,12 +186,12 @@ export const AlianzasEducativasPage: React.FC = () => {
               }}
               onError={(e) => {
                 const img = e.currentTarget;
-                if (!img.src.includes('aviacion-1.webp')) {
-                  img.src = "/imgpag7/aviacion-1.webp";
+                if (!img.src.includes('imagentcp.webp')) {
+                  img.src = "/imgpag7/imagentcp.webp";
                 }
               }}
             />
-            {/* Degradado lateral suave para fusionar la imagen con el color oscuro izquierdo */}
+            {/* Soft Overlay Fade */}
             <div style={{ position: 'absolute', inset: 0, zIndex: 2, background: 'linear-gradient(to right, #0a0f1a 0%, transparent 15%, transparent 100%)', pointerEvents: 'none' }} />
           </div>
 
@@ -264,16 +265,16 @@ export const AlianzasEducativasPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>Methodology</h4>
-                  <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#fff' }}>Onsite classes:</p>
+                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', marginBottom: '1rem', letterSpacing: '1px', textTransform: 'uppercase' }}>METHODOLOGY</h4>
+                  <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: '#fff', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px' }}>ONSITE CLASSES</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#fff' }}>
                     <ListItem>8 hours per week. AT ATI.</ListItem>
                     <ListItem>Small group sessions.</ListItem>
-                    <ListItem>study material included.</ListItem>
+                    <ListItem>Study material included.</ListItem>
                     <ListItem>Interactive platform.</ListItem>
                     <ListItem>LMS 24/7 to self study.</ListItem>
-                    <ListItem>Certificate of completion</ListItem>
-                    <ListItem>Printable, signed form canada.</ListItem>
+                    <ListItem>Certificate of completion.</ListItem>
+                    <ListItem>Printable, signed form Canada.</ListItem>
                   </ul>
                 </div>
               </div>
@@ -302,7 +303,7 @@ export const AlianzasEducativasPage: React.FC = () => {
           display: 'flex',
           flexWrap: 'wrap-reverse',
           minHeight: '650px',
-          overflow: 'visible'
+          overflow: 'hidden'
         }}>
           
           {/* LADO IZQUIERDO: Contenido y Textos (50%) */}
@@ -328,12 +329,12 @@ export const AlianzasEducativasPage: React.FC = () => {
             {/* Títulos centrales */}
             <div style={{ margin: '0 0 2.5rem 0' }}>
               <h1 style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)', fontWeight: 900, margin: '0', textShadow: '0 2px 10px rgba(0,0,0,0.6)', lineHeight: 1.1 }}>
-                INGLÉS PARA PCA
+                ENGLISH FOR PCA
               </h1>
-              <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', fontWeight: 800, color: '#d3121b', margin: '0 0 0.5rem', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
-                PILOTO COMERCIAL
+              <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', fontWeight: 900, color: '#d3121b', margin: '0 0 0.5rem', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
+                COMMERCIAL PILOT
               </h2>
-              <p style={{ fontSize: '1.2rem', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', margin: 0, color: 'rgba(255,255,255,0.8)' }}>
+              <p style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', margin: 0, color: 'rgba(255,255,255,0.9)' }}>
                 INTERNATIONAL OPPORTUNITIES
               </p>
             </div>
@@ -370,7 +371,7 @@ export const AlianzasEducativasPage: React.FC = () => {
           <div style={{
             flex: '1.5 1 min(100%, 500px)',
             position: 'relative',
-            minHeight: '600px',
+            minHeight: '650px',
             backgroundColor: '#0f1520',
             overflow: 'hidden'
           }}>
@@ -383,7 +384,7 @@ export const AlianzasEducativasPage: React.FC = () => {
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'cover', 
-                objectPosition: 'center top', 
+                objectPosition: 'center center', 
                 zIndex: 1 
               }}
               onError={(e) => {
@@ -485,7 +486,7 @@ export const AlianzasEducativasPage: React.FC = () => {
 
               {/* Metodología */}
               <div>
-                <h4 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#fff', marginBottom: '1.5rem', letterSpacing: '0.5px' }}>Methodology</h4>
+                <h4 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#fff', marginBottom: '1.5rem', letterSpacing: '1px', textTransform: 'uppercase' }}>METHODOLOGY</h4>
                 
                 {/* ONSITE CLASSES */}
                 <div style={{ marginBottom: '1.8rem' }}>

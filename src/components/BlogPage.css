@@ -547,24 +547,26 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(231, 26, 36, 0.15);
+  border: 1px solid rgba(231, 26, 36, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--color-accent-red);
 }
 
 .trabaja-contact-icon img {
   width: 20px;
   height: 20px;
   object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(21%) sepia(85%) saturate(5432%) hue-rotate(349deg) brightness(97%) contrast(92%);
 }
 
 .trabaja-contact-text h4 {
   font-size: 0.8rem;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: 1px;
   margin-bottom: 2px;
 }

@@ -77,7 +77,7 @@ export const HeroSequence: React.FC<HeroSequenceProps> = ({ onOpenEnrollment, on
       {!isReady && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 50, background: '#02050c', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', width: '100%', maxWidth: 460, padding: '0 2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', color: '#4a90d9', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '2px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-accent-blue)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '2px' }}>
               AUTORIZANDO DESPEGUE...
             </div>
             
@@ -89,17 +89,17 @@ export const HeroSequence: React.FC<HeroSequenceProps> = ({ onOpenEnrollment, on
                 left: `calc(${loadPct}% - 15px)`,
                 transition: 'left 0.1s linear',
                 animation: 'plane-hop 0.4s ease-in-out infinite alternate',
-                color: '#4a90d9',
+                color: 'var(--color-accent-blue)',
                 zIndex: 2
               }}>
                 <RiPlaneLine size={30} style={{ transform: 'rotate(45deg)' }} />
               </div>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginBottom: '10px' }}>
-                <span>CARGANDO SISTEMAS</span><span style={{ color: loadPct === 100 ? '#2ecc71' : '#4a90d9', fontWeight: 800 }}>{loadPct}%</span>
+                <span>CARGANDO SISTEMAS</span><span style={{ color: loadPct === 100 ? '#2ecc71' : 'var(--color-accent-blue)', fontWeight: 800 }}>{loadPct}%</span>
               </div>
               <div style={{ width: '100%', height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 4, overflow: 'hidden' }}>
-                <div style={{ width: `${loadPct}%`, height: '100%', background: 'linear-gradient(90deg, #4a90d9, #4a90d9, #2ecc71)', transition: 'width 0.1s linear' }} />
+                <div style={{ width: `${loadPct}%`, height: '100%', background: 'linear-gradient(90deg, #00d2ff, #00d2ff, #2ecc71)', transition: 'width 0.1s linear' }} />
               </div>
             </div>
           </div>

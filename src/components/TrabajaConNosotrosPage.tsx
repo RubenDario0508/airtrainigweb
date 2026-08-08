@@ -3,7 +3,9 @@ import {
   RiArrowRightSLine, 
   RiCloseLine, 
   RiCheckLine,
-  RiLoader4Line
+  RiLoader4Line,
+  RiMailLine,
+  RiMapPinLine
 } from 'react-icons/ri';
 import { wpService } from '../services/wordpressMock';
 import './BlogPage.css'; // Reuse CSS styling for the form and general styles
@@ -199,25 +201,7 @@ export const TrabajaConNosotrosPage: React.FC<TrabajaConNosotrosPageProps> = () 
             </div>
           </div>
 
-          {/* Card 2: Diseñador Gráfico */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
-            <img loading="lazy" 
-              src="/imgpag8/trabajaconnosotros/Diseñador grafico-CHIA.jpeg" 
-              alt="Vacante Diseñador Gráfico" 
-              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'fill', display: 'block', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
-            />
-            <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', marginTop: 'auto' }}>
-              <button 
-                onClick={() => scrollToForm('Diseño Gráfico')}
-                className="btn-submit-cv"
-                style={{ padding: '0.8rem 2rem', fontSize: '1rem', width: '100%' }}
-              >
-                Postularse Ahora <RiArrowRightSLine />
-              </button>
-            </div>
-          </div>
-
-          {/* Card 3: Auxiliar de Servicios Generales */}
+          {/* Card 2: Auxiliar de Servicios Generales */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
             <img loading="lazy" 
               src="/imgpag8/trabajaconnosotros/Vacante Auxiliar de Servicios Generales.jpg" 
@@ -246,19 +230,19 @@ export const TrabajaConNosotrosPage: React.FC<TrabajaConNosotrosPageProps> = () 
         <div className="trabaja-container">
           {/* Columna Izquierda: Información */}
           <div className="trabaja-info">
-            <h2>¿No encuentras la Vacante Ideal?</h2>
-            <p>
+            <h2 style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>¿No encuentras la Vacante Ideal?</h2>
+            <p style={{ color: 'rgba(255, 255, 255, 0.92)', fontSize: '1.05rem', lineHeight: 1.7, fontWeight: 400 }}>
               Envíanos tu currículum de forma espontánea. Mantenemos una base de datos activa para futuras aperturas de vacantes y proyectos especiales en nuestra academia.
             </p>
 
             <div className="trabaja-contact-list">
               <div className="trabaja-contact-item">
                 <div className="trabaja-contact-icon">
-                  <img loading="lazy" src="/imgpag8/trabajaconnosotros/icon/Correo.png" alt="Email Icon" />
+                  <RiMailLine size={24} style={{ color: 'var(--color-accent-red)' }} />
                 </div>
                 <div className="trabaja-contact-text">
-                  <h4>Correo Electrónico</h4>
-                  <a href="mailto:factoreshumanos@airtrainingacademia.com" style={{ color: '#ffffff', transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                  <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase' }}>CORREO ELECTRÓNICO</h4>
+                  <a href="mailto:factoreshumanos@airtrainingacademia.com" style={{ color: '#ffffff', fontWeight: 700, transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
                     factoreshumanos@airtrainingacademia.com
                   </a>
                 </div>
@@ -266,20 +250,20 @@ export const TrabajaConNosotrosPage: React.FC<TrabajaConNosotrosPageProps> = () 
 
               <div className="trabaja-contact-item">
                 <div className="trabaja-contact-icon">
-                  <img loading="lazy" src="/imgpag8/trabajaconnosotros/icon/Ubicacioon.png" alt="Location Icon" />
+                  <RiMapPinLine size={24} style={{ color: 'var(--color-accent-red)' }} />
                 </div>
                 <div className="trabaja-contact-text">
-                  <h4>Sede Principal</h4>
-                  <a href="https://www.google.com/maps/search/?api=1&query=Cra.+6+%2301a-47,+Barrio+Los+Cedros" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                  <h4 style={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 900, letterSpacing: '1px', textTransform: 'uppercase' }}>SEDE PRINCIPAL</h4>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Cra.+6+%2301a-47,+Barrio+Los+Cedros" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
                     Cra. 6 #01a-47, Barrio Los Cedros
                   </a>
                 </div>
               </div>
             </div>
 
-            <div className="trabaja-bottom-note">
+            <div className="trabaja-bottom-note" style={{ color: 'rgba(255, 255, 255, 0.90)', fontSize: '1rem', lineHeight: 1.6 }}>
               Hacer llegar los documentos y datos al correo electrónico de: <br />
-              <a href="mailto:factoreshumanos@airtrainingacademia.com" style={{ color: '#ffffff', transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+              <a href="mailto:factoreshumanos@airtrainingacademia.com" style={{ color: '#ffffff', fontWeight: 700, transition: 'color 0.3s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-accent-red)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
                 factoreshumanos@airtrainingacademia.com
               </a>
             </div>
