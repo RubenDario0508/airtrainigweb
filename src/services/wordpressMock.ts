@@ -211,6 +211,61 @@ class WordPressService {
     return MOCK_POSTS;
   }
 
+  // Obtener Vacantes (Posts en categoría "vacantes")
+  async getVacantes(): Promise<any[]> {
+    if (this.useRealApi) {
+      try {
+        const response = await fetch(`${this.apiUrl}/wp-json/wp/v2/posts?categories=vacantes&_embed`);
+        if (response.ok) {
+          const data = await response.json();
+          // Hacemos el mapeo si hay data
+          if (Array.isArray(data) && data.length > 0) {
+            return data.map((post: any) => ({
+              id: post.id,
+              title: post.title?.rendered || "",
+              imageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "",
+              content: post.content?.rendered || "",
+            }));
+          }
+        }
+      } catch (e) {
+        console.error("Error obteniendo vacantes de WP", e);
+      }
+    }
+    return []; // Mock return if fails or empty
+  }
+
+  // Obtener Biblioteca (Posts en categoría "biblioteca" o "manuales")
+  async getBiblioteca(): Promise<any[]> {
+    if (this.useRealApi) {
+      try {
+        const response = await fetch(`${this.apiUrl}/wp-json/wp/v2/posts?categories=biblioteca&_embed`);
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            return data.map((post: any) => {
+              // Extract the first href link from content if it exists
+              const content = post.content?.rendered || "";
+              const match = content.match(/href="([^"]+)"/);
+              const downloadUrl = match ? match[1] : "";
+
+              return {
+                id: post.id,
+                title: post.title?.rendered || "",
+                desc: (post.excerpt?.rendered || "").replace(/<[^>]*>/g, '').slice(0, 100),
+                type: 'Manuales', // Fallback
+                downloadUrl
+              };
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Error obteniendo biblioteca de WP", e);
+      }
+    }
+    return [];
+  }
+
   // Obtener Sedes (WordPress Custom Post Type o Páginas)
   async getSedes(): Promise<WordPressSede[]> {
     await new Promise(resolve => setTimeout(resolve, 600));
@@ -223,7 +278,11 @@ class WordPressService {
     
     if (this.useRealApi) {
       try {
-        const response = await fetch(`${this.apiUrl}/contact-form-7/v1/contact-forms/YOUR_FORM_ID/feedback`, {
+        // NOTA PARA EL USUARIO:
+        // Debes instalar Contact Form 7 en WordPress, crear un formulario con estos campos, 
+        // y reemplazar el ID '123' de abajo por el ID real de tu formulario.
+        const CF7_FORM_ID = '123'; 
+        const response = await fetch(`${this.apiUrl}/wp-json/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
           method: 'POST',
           body: new URLSearchParams({
             'your-name': data.nombre,
@@ -237,11 +296,11 @@ class WordPressService {
         return { success: result.status === 'mail_sent', message: result.message };
       } catch (error) {
         console.error("Error al enviar formulario a WordPress:", error);
-        return { success: false, message: "Error de conexión con el servidor. Se guardó localmente." };
+        return { success: false, message: "Error de conexión con el servidor. Por favor intenta más tarde." };
       }
     }
     
-    // Simular guardado
+    // Simular guardado local
     await new Promise(resolve => setTimeout(resolve, 1500));
     return {
       success: true,
@@ -249,9 +308,28 @@ class WordPressService {
     };
   }
 
-  // Simular envío de currículum
+  // Enviar archivo de C.V.
   async submitCV(formData: FormData): Promise<{ success: boolean; message: string }> {
     console.log("Subiendo archivo de C.V. y enviando postulación a WordPress...", formData);
+    
+    if (this.useRealApi) {
+      try {
+        // NOTA PARA EL USUARIO:
+        // Reemplaza '456' con el ID del formulario de Contact Form 7 para "Trabaja con Nosotros".
+        // Este formulario debe aceptar archivos.
+        const CF7_FORM_ID = '456'; 
+        const response = await fetch(`${this.apiUrl}/wp-json/contact-form-7/v1/contact-forms/${CF7_FORM_ID}/feedback`, {
+          method: 'POST',
+          body: formData // Ya es FormData nativo con el archivo adjunto
+        });
+        const result = await response.json();
+        return { success: result.status === 'mail_sent', message: result.message };
+      } catch (error) {
+        console.error("Error al enviar formulario a WordPress:", error);
+        return { success: false, message: "Error de conexión al enviar el C.V." };
+      }
+    }
+
     await new Promise(resolve => setTimeout(resolve, 2000));
     return {
       success: true,

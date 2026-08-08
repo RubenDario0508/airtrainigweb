@@ -341,17 +341,15 @@ export const EducacionContinuaPage: React.FC = () => {
       return;
     }
     
-    // Create WooCommerce add-to-cart URL. 
-    // For multiple items, WooCommerce natively requires plugins or custom code.
-    // Assuming a standard or customized redirect logic here:
-    const params = new URLSearchParams();
-    cartItems.forEach((item, index) => {
-      params.append(`product_id[${index}]`, item.wpId);
-      params.append(`quantity[${index}]`, item.quantity.toString());
-    });
+    // Create WooCommerce add-to-cart URL pointing to the new WP backend
+    // Si solo hay un item, usamos el add-to-cart nativo de WooCommerce
+    const item = cartItems[0];
+    const baseUrl = import.meta.env.VITE_WP_API_URL || 'http://admin.atiescuelaviacion.com';
+    let checkoutUrl = `${baseUrl}/checkout/?add-to-cart=${item.wpId}&quantity=${item.quantity}`;
     
-    const checkoutUrl = `/?checkout=true&${params.toString()}`;
-    alert(`Redirigiendo a pasarela de pagos / checkout...\n\nItems en carrito:\n${cartItems.map(i => `- ${i.quantity}x ${i.title} (${i.label})`).join('\n')}\n\nURL Generada:\n${checkoutUrl}`);
+    // If they have multiple items, WooCommerce needs a custom plugin to handle multiple add-to-cart in URL
+    // So we just send them to the checkout page with the first item for now.
+    window.location.href = checkoutUrl;
   };
 
   useEffect(() => {

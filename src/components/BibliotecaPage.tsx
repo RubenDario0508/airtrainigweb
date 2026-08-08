@@ -38,9 +38,27 @@ const RegulacionesHeadingIcon = () => <img loading="lazy" src="/impgpag6/icon/RE
 export const BibliotecaPage: React.FC = () => {
   const [filter, setFilter] = useState('Todos');
   const [search, setSearch] = useState('');
+  const [libraryItems, setLibraryItems] = useState<LibraryItem[]>([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Fetch dynamic items from WordPress (category: biblioteca)
+    async function fetchBiblioteca() {
+      try {
+        const { wpService } = await import('../services/wordpressMock');
+        const items = await wpService.getBiblioteca();
+        if (items.length > 0) {
+          setLibraryItems(items);
+        } else {
+          // Fallback if WP fails or is empty
+          setLibraryItems([...MANUALES, ...BIBLIOGRAFICO, ...REGULACIONES]);
+        }
+      } catch (e) {
+        setLibraryItems([...MANUALES, ...BIBLIOGRAFICO, ...REGULACIONES]);
+      }
+    }
+    fetchBiblioteca();
   }, []);
 
   const filterItems = (items: LibraryItem[]) => {
@@ -51,9 +69,10 @@ export const BibliotecaPage: React.FC = () => {
     });
   };
 
-  const filteredManuales = filterItems(MANUALES);
-  const filteredLibros = filterItems(BIBLIOGRAFICO);
-  const filteredRegulaciones = filterItems(REGULACIONES);
+  const filteredItems = filterItems(libraryItems);
+  const filteredManuales = filteredItems.filter(item => item.type === 'Manuales');
+  const filteredLibros = filteredItems.filter(item => item.type === 'Libros');
+  const filteredRegulaciones = filteredItems.filter(item => item.type === 'Regulaciones');
 
   const showManuales = filteredManuales.length > 0 && (filter === 'Todos' || filter === 'Manuales');
   const showLibros = filteredLibros.length > 0 && (filter === 'Todos' || filter === 'Libros');
@@ -119,7 +138,13 @@ export const BibliotecaPage: React.FC = () => {
                     </div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.5rem' }}>{doc.title}</h3>
                     <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: '0 0 1.5rem', flex: 1 }}>{doc.desc}</p>
-                    <button style={{ width: '100%', padding: '0.7rem', border: '1px solid var(--color-text-primary)', borderRadius: '8px', backgroundColor: 'transparent', color: 'var(--color-text-primary)', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', transition: 'all 0.2s' }}
+                    <button 
+                      onClick={() => {
+                        const url = (doc as any).downloadUrl;
+                        if (url) window.open(url, '_blank');
+                        else alert('Archivo no disponible. Se subirá pronto.');
+                      }}
+                      style={{ width: '100%', padding: '0.7rem', border: '1px solid var(--color-text-primary)', borderRadius: '8px', backgroundColor: 'transparent', color: 'var(--color-text-primary)', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', transition: 'all 0.2s' }}
                       onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--color-text-primary)'; e.currentTarget.style.color = 'var(--color-bg-primary)'; }}
                       onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
                     >
@@ -146,7 +171,13 @@ export const BibliotecaPage: React.FC = () => {
                     </div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.5rem' }}>{doc.title}</h3>
                     <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: '0 0 1.5rem', flex: 1 }}>{doc.desc}</p>
-                    <button style={{ width: '100%', padding: '0.7rem', border: '1px solid var(--color-text-primary)', borderRadius: '8px', backgroundColor: 'transparent', color: 'var(--color-text-primary)', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', transition: 'all 0.2s' }}
+                    <button 
+                      onClick={() => {
+                        const url = (doc as any).downloadUrl;
+                        if (url) window.open(url, '_blank');
+                        else alert('Archivo no disponible. Se subirá pronto.');
+                      }}
+                      style={{ width: '100%', padding: '0.7rem', border: '1px solid var(--color-text-primary)', borderRadius: '8px', backgroundColor: 'transparent', color: 'var(--color-text-primary)', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', transition: 'all 0.2s' }}
                       onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--color-text-primary)'; e.currentTarget.style.color = 'var(--color-bg-primary)'; }}
                       onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
                     >
@@ -181,7 +212,7 @@ export const BibliotecaPage: React.FC = () => {
                         </td>
                         <td style={{ padding: '1rem', color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>{doc.date}</td>
                         <td style={{ padding: '1rem', textAlign: 'right' }}>
-                          <a href="#" style={{ color: 'var(--color-accent-red)', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' }}>Visualizar</a>
+                          <a href={(doc as any).downloadUrl || '#'} target="_blank" rel="noreferrer" style={{ color: 'var(--color-accent-red)', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' }}>Visualizar</a>
                         </td>
                       </tr>
                     ))}

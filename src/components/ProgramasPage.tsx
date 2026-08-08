@@ -457,18 +457,55 @@ export const ProgramasPage: React.FC = () => {
                 Hablar con un Asesor
               </h3>
               
-              <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flexGrow: 1, justifyContent: 'space-between' }} onSubmit={e => e.preventDefault()}>
+              <form 
+                style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', flexGrow: 1, justifyContent: 'space-between' }} 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const target = e.target as any;
+                  const nombre = target[0].value;
+                  const email = target[1].value;
+                  const programa = target[2].value;
+                  if (!nombre || !email || !programa) {
+                    alert('Por favor completa nombre, email y programa de interés.');
+                    return;
+                  }
+                  
+                  const btn = target.querySelector('button[type="submit"]');
+                  const oldText = btn.innerHTML;
+                  btn.innerHTML = 'Enviando...';
+                  btn.disabled = true;
+
+                  const { wpService } = await import('../services/wordpressMock');
+                  const res = await wpService.submitEnrollment({
+                    nombre,
+                    email,
+                    telefono: 'No proporcionado',
+                    programa,
+                    sede: `${ciudad}, ${departamento}`
+                  });
+
+                  btn.innerHTML = oldText;
+                  btn.disabled = false;
+
+                  if (res.success) {
+                    alert('¡Solicitud enviada exitosamente!');
+                    target.reset();
+                  } else {
+                    alert('Error: ' + res.message);
+                  }
+                }}
+              >
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Nombre Completo</label>
-                  <input type="text" placeholder="Ej: Juan Pérez" style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }} />
+                  <input type="text" required placeholder="Ej: Juan Pérez" style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }} />
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Correo Electrónico</label>
-                  <input type="email" placeholder="Ej: correo@ejemplo.com" style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }} />
+                  <input type="email" required placeholder="Ej: correo@ejemplo.com" style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }} />
                 </div>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Programa de Interés</label>
-                  <select style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', appearance: 'none', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }}>
+                  <select required style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1.5px solid var(--color-bg-tertiary)', backgroundColor: 'var(--color-bg-primary)', color: 'var(--color-text-primary)', appearance: 'none', boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.15)' }}>
                     <option value="">Selecciona un programa</option>
                     <option value="dpa">Despachador de Aeronaves (DPA)</option>
                     <option value="tcp">Tripulante de Cabina (TCP)</option>

@@ -26,6 +26,20 @@ export const TrabajaConNosotrosPage: React.FC<TrabajaConNosotrosPageProps> = () 
   const [cvSubmitSuccess, setCvSubmitSuccess] = useState<string | null>(null);
   const [cvError, setCvError] = useState<string | null>(null);
 
+  const [vacantes, setVacantes] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    async function fetchVacantes() {
+      try {
+        const data = await wpService.getVacantes();
+        setVacantes(data);
+      } catch (e) {
+        console.error("Failed to load vacantes", e);
+      }
+    }
+    fetchVacantes();
+  }, []);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formSectionRef = useRef<HTMLDivElement>(null);
   const vacanciesSectionRef = useRef<HTMLDivElement>(null);
@@ -183,41 +197,43 @@ export const TrabajaConNosotrosPage: React.FC<TrabajaConNosotrosPageProps> = () 
 
         {/* Grid de Flyers de Vacantes */}
         <div className="blog-grid" style={{ marginTop: '2rem' }}>
-          {/* Card 1: Coordinador Académico */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
-            <img loading="lazy" 
-              src="/imgpag8/trabajaconnosotros/Vacante Coordinador Académico.jpeg" 
-              alt="Vacante Coordinador Académico" 
-              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'fill', display: 'block', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
-            />
-            <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', marginTop: 'auto' }}>
-              <button 
-                onClick={() => scrollToForm('Coordinación Académica')}
-                className="btn-submit-cv"
-                style={{ padding: '0.8rem 2rem', fontSize: '1rem', width: '100%' }}
-              >
-                Postularse Ahora <RiArrowRightSLine />
-              </button>
+          {vacantes.length > 0 ? (
+            vacantes.map((vacante, idx) => (
+              <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
+                <img loading="lazy" 
+                  src={vacante.imageUrl || "/imgpag8/trabajaconnosotros/Vacante Coordinador Académico.jpeg"} 
+                  alt={vacante.title} 
+                  style={{ width: '100%', aspectRatio: '3/4', objectFit: 'fill', display: 'block', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
+                />
+                <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', marginTop: 'auto' }}>
+                  <button 
+                    onClick={() => scrollToForm(vacante.title)}
+                    className="btn-submit-cv"
+                    style={{ padding: '0.8rem 2rem', fontSize: '1rem', width: '100%' }}
+                  >
+                    Postularse Ahora <RiArrowRightSLine />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
+              <img loading="lazy" 
+                src="/imgpag8/trabajaconnosotros/Vacante Coordinador Académico.jpeg" 
+                alt="Vacante Coordinador Académico" 
+                style={{ width: '100%', aspectRatio: '3/4', objectFit: 'fill', display: 'block', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
+              />
+              <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', marginTop: 'auto' }}>
+                <button 
+                  onClick={() => scrollToForm('Coordinación Académica')}
+                  className="btn-submit-cv"
+                  style={{ padding: '0.8rem 2rem', fontSize: '1rem', width: '100%' }}
+                >
+                  Postularse Ahora <RiArrowRightSLine />
+                </button>
+              </div>
             </div>
-          </div>
-
-          {/* Card 2: Auxiliar de Servicios Generales */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}>
-            <img loading="lazy" 
-              src="/imgpag8/trabajaconnosotros/Vacante Auxiliar de Servicios Generales.jpg" 
-              alt="Vacante Auxiliar de Servicios Generales" 
-              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'fill', display: 'block', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
-            />
-            <div style={{ padding: '1.5rem', textAlign: 'center', width: '100%', marginTop: 'auto' }}>
-              <button 
-                onClick={() => scrollToForm('Auxiliar de Servicios Generales')}
-                className="btn-submit-cv"
-                style={{ padding: '0.8rem 2rem', fontSize: '1rem', width: '100%' }}
-              >
-                Postularse Ahora <RiArrowRightSLine />
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
