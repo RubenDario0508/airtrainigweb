@@ -171,13 +171,17 @@ export const MOCK_PROGRAMS = [
 
 // Cliente simulado de WordPress
 class WordPressService {
-  private useRealApi: boolean = false;
-  private apiUrl: string = "";
+  private useRealApi: boolean = true;
+  private apiUrl: string = "http://admin.atiescuelaviacion.com";
 
   constructor() {
-    this.apiUrl = import.meta.env.VITE_WP_API_URL || "";
-    this.useRealApi = !!this.apiUrl;
+    // URL hardcodeada directamente para garantizar conexión en producción
+    // Si VITE_WP_API_URL está definida, se usa; si no, cae al default
+    const envUrl = import.meta.env.VITE_WP_API_URL;
+    this.apiUrl = (envUrl && envUrl.trim() !== '') ? envUrl : "http://admin.atiescuelaviacion.com";
+    this.useRealApi = true; // Siempre conectar a la API real
   }
+
 
   // Obtener Posts del Blog
   async getPosts(): Promise<WordPressPost[]> {
